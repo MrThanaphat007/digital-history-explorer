@@ -1,0 +1,13 @@
+route,seq,node,lat,lon,year_start,note,source
+Silk Road (schematic),1,Chang'an,34.27,108.95,-130,"Simplified chain of major nodes, not an exact path. Start year approximates Han-era westward contacts.",Encyclopaedia Britannica
+Silk Road (schematic),2,Dunhuang,40.14,94.66,-130,,Encyclopaedia Britannica
+Silk Road (schematic),3,Kashgar,39.47,75.99,-130,,Encyclopaedia Britannica
+Silk Road (schematic),4,Samarkand,39.65,66.96,-130,,Encyclopaedia Britannica
+Silk Road (schematic),5,Merv,37.66,62.19,-130,,Encyclopaedia Britannica
+Silk Road (schematic),6,Antioch,36.20,36.16,-130,,Encyclopaedia Britannica
+Royal Road (schematic),1,Sardis,38.49,28.04,-500,"Achaemenid Persian road described by Herodotus; nodes simplified.","Herodotus (Histories, Book 5)"
+Royal Road (schematic),2,Nineveh,36.36,43.15,-500,,"Herodotus (Histories, Book 5)"
+Royal Road (schematic),3,Susa,32.19,48.26,-500,,"Herodotus (Histories, Book 5)"
+Trans-Saharan trade (schematic),1,Sijilmasa,31.28,-4.28,700,"Simplified caravan axis; start year approximate (early medieval).",Encyclopaedia Britannica
+Trans-Saharan trade (schematic),2,Timbuktu,16.77,-3.01,700,,Encyclopaedia Britannica
+Trans-Saharan trade (schematic),3,Gao,16.27,-0.05,700,,Encyclopaedia Britannica
