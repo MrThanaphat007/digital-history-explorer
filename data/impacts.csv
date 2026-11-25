@@ -1,0 +1,62 @@
+id,root_event_id,parent_id,label,year,detail,certainty,linked_event_id,source
+b1,5,,Second Triumvirate formed,-43,"Octavian (named Caesar's heir in his will), Mark Antony and Lepidus take joint emergency powers.",established,,Encyclopaedia Britannica
+b1a,5,b1,Conspirators defeated at Philippi,-42,"Antony and Octavian defeat Brutus and Cassius.",established,,Encyclopaedia Britannica
+b1b,5,b1,Battle of Actium,-31,"Octavian's fleet defeats Antony and Cleopatra.",established,,Encyclopaedia Britannica
+b1b1,5,b1b,Egypt becomes a Roman province,-30,"Octavian annexes Egypt after the deaths of Antony and Cleopatra.",established,,Encyclopaedia Britannica
+b1b2,5,b1b,Augustus becomes first emperor,-27,"The Senate grants Octavian the title Augustus; start of the Principate.",established,6,Encyclopaedia Britannica
+b2,5,,Caesar officially deified,-42,"The Senate recognises Caesar as a state god.",established,,Encyclopaedia Britannica
+d1,9,,Successor kingdoms rule former Western provinces,476,"Germanic-led kingdoms such as the Ostrogoths, Visigoths and Franks hold power in former Western territories.",established,,Encyclopaedia Britannica
+d1a,9,d1,Frankish kingdom grows into a major Western power,,"Under the Merovingian and later Carolingian dynasties.",established,,Encyclopaedia Britannica
+d1a1,9,d1a,Charlemagne crowned emperor,800,"The imperial title is revived in the West.",established,12,Encyclopaedia Britannica
+d2,9,,Eastern Roman (Byzantine) Empire continues,476,"The eastern half of the empire survives for nearly a thousand years.",established,,Encyclopaedia Britannica
+d2a,9,d2,Justinian's campaigns to reconquer the West,533,"Begins with the war against the Vandals in North Africa.",established,,Encyclopaedia Britannica
+d2b,9,d2,Fall of Constantinople,1453,"The Byzantine state ends when Ottoman forces capture its capital.",established,17,Encyclopaedia Britannica
+d3,9,,Historians debate how abrupt the change was,,"Some historians describe a gradual transformation of the Roman world rather than a sudden collapse.",debated,,Encyclopaedia Britannica
+e1,10,,Muslim community established at Medina,622,"The first Muslim community-state takes shape.",established,,Encyclopaedia Britannica
+e1a,10,e1,Islamic calendar counts years from the Hijra,622,"The calendar was introduced later; year 1 is the year of the Hijra.",established,,Encyclopaedia Britannica
+e2,10,,Rapid expansion of Muslim-ruled territory,,"Within about a century Muslim rule extended from Iberia to Central Asia.",established,,Encyclopaedia Britannica
+e2a,10,e2,Umayyad caliphate,661,"First hereditary caliphate, ruling from Damascus.",established,,Encyclopaedia Britannica
+e2b,10,e2,Abbasid caliphate replaces the Umayyads,750,"Dynastic change in the caliphate.",established,,Encyclopaedia Britannica
+e2b1,10,e2b,Baghdad founded,762,"Caliph al-Mansur founds the new Abbasid capital.",established,11,Encyclopaedia Britannica
+e2c,10,e2,Umayyad emirate in Cordoba,756,"A branch of the Umayyads establishes rule in Iberia.",established,,Encyclopaedia Britannica
+f1,16,,Mass mortality in Europe,1347,"A large share of Europe's population died in the following years; estimates vary by region and source.",established,,Encyclopaedia Britannica
+f2,16,,Labour shortages,1350,"With fewer workers, labour became scarcer in many regions.",established,,Encyclopaedia Britannica
+f2a,16,f2,Statute of Labourers (England),1351,"An attempt to hold wages at pre-plague levels.",established,,Encyclopaedia Britannica
+f2a1,16,f2a,Peasants' Revolt in England,1381,"Tensions over labour laws and taxation are often cited among its background causes; historians stress multiple causes.",debated,,Encyclopaedia Britannica
+f3,16,,Persecution of Jewish communities,1348,"Plague rumours led to massacres of Jews in several European towns, for example Strasbourg in 1349.",established,,Encyclopaedia Britannica
+f4,16,,Plague outbreaks recur,,"Plague returned in waves for centuries.",established,,Encyclopaedia Britannica
+g1,17,,End of the Byzantine Empire,1453,"The last remnant of the Roman state in the East ends.",established,,Encyclopaedia Britannica
+g1a,17,g1,Constantinople becomes the Ottoman capital,1453,"The city, later known as Istanbul, becomes the centre of Ottoman rule.",established,,Encyclopaedia Britannica
+g1a1,17,g1a,Ottoman power grows in southeast Europe and the eastern Mediterranean,,"Ottoman expansion continued in the following decades.",established,,Encyclopaedia Britannica
+g2,17,,Greek scholars move to Italy,,"Some Byzantine scholars settled in Italy; historians debate how much this shaped the Renaissance, since contacts began earlier.",debated,,Encyclopaedia Britannica
+g3,17,,Search for alternative trade routes,,"A traditional explanation for European maritime exploration; historians note Portuguese voyages began decades earlier.",debated,18,Encyclopaedia Britannica
+h1,18,,Sustained European contact with the Americas,1492,"Start of lasting contact between Europe and the Americas.",established,,Encyclopaedia Britannica
+h1a,18,h1,Columbian exchange of crops and animals,,"Maize and potatoes spread to the Old World; horses and wheat were introduced to the Americas.",established,,Encyclopaedia Britannica
+h1b,18,h1,Epidemic disease among indigenous peoples,,"Diseases introduced from Europe caused severe population decline; the scale is debated.",established,,Encyclopaedia Britannica
+h2,18,,Spanish colonisation begins,,"Spanish settlement starts in the Caribbean and spreads to the mainland.",established,,Encyclopaedia Britannica
+h2a,18,h2,Treaty of Tordesillas,1494,"Spain and Portugal agree to divide newly encountered lands.",established,,Encyclopaedia Britannica
+h2b,18,h2,Fall of Tenochtitlan,1521,"Spanish forces and indigenous allies conquer the Aztec capital.",established,19,Encyclopaedia Britannica
+h3,18,,Plantation economies and the transatlantic slave trade,1501,"Colonial economies drove demand for forced labour. The voyages database records about 12.5 million people embarked between 1501 and 1866 (see the Data Analysis page).",established,,SlaveVoyages (Trans-Atlantic Slave Trade Database)
+i1,21,,Declaration of the Rights of Man and of the Citizen,1789,"Adopted in August 1789 (see the Archive).",established,,Encyclopaedia Britannica
+i2,21,,Monarchy abolished; First Republic proclaimed,1792,"The French monarchy ends.",established,,Encyclopaedia Britannica
+i2a,21,i2,Louis XVI executed,1793,"The king is put to death in January 1793.",established,,Encyclopaedia Britannica
+i3,21,,Haitian Revolution,1791,"Enslaved people in Saint-Domingue rise in 1791, in a colonial setting shaped by revolutionary France.",established,22,Encyclopaedia Britannica
+i4,21,,Revolutionary and Napoleonic Wars,1792,"A long series of wars involving France and most European powers.",established,,Encyclopaedia Britannica
+i4a,21,i4,Napoleon takes power,1799,"Napoleon Bonaparte seizes power in a coup.",established,,Encyclopaedia Britannica
+i4b,21,i4,Congress of Vienna,1815,"The powers redraw the European order after the Napoleonic Wars.",established,,Encyclopaedia Britannica
+i4c,21,i4,Battle of Waterloo,1815,"Napoleon is defeated by Allied armies.",established,23,Encyclopaedia Britannica
+j1,25,,Collapse of empires,1918,"The German, Austro-Hungarian, Russian and Ottoman empires ended between 1917 and 1922.",established,,Encyclopaedia Britannica
+j2,25,,Russian Revolution,1917,"Strain from the war contributed to the fall of the tsarist state.",established,,Encyclopaedia Britannica
+j2a,25,j2,Soviet Union formed,1922,"The USSR is established.",established,,Encyclopaedia Britannica
+j3,25,,Treaty of Versailles,1919,"Peace settlement with Germany.",established,,Encyclopaedia Britannica
+j3a,25,j3,Debated link to the Second World War,,"Historians disagree about how much the settlement contributed to later conflict.",debated,,Encyclopaedia Britannica
+j4,25,,League of Nations created,1920,"International organisation founded after the war.",established,,Encyclopaedia Britannica
+j4a,25,j4,United Nations succeeds the League,1945,"The UN Charter is signed in San Francisco.",established,26,Encyclopaedia Britannica
+k1,27,,India and Pakistan become independent states,1947,"British India is divided.",established,,Encyclopaedia Britannica
+k1a,27,k1,East Pakistan becomes Bangladesh,1971,"A later development within the state created in 1947.",established,,Encyclopaedia Britannica
+k2,27,,Mass displacement,1947,"Millions were displaced across the new border; estimates of the total vary widely.",established,,Encyclopaedia Britannica
+k3,27,,Kashmir dispute,1947,"The first India-Pakistan war began in 1947; the dispute continues.",established,,Encyclopaedia Britannica
+l1,28,,Revolutions across the Eastern Bloc,1989,"The fall of the Wall came amid a wider wave of change in Eastern Europe.",established,,Encyclopaedia Britannica
+l1a,28,l1,European Union enlargement of 2004,2004,"Several former Eastern Bloc states joined the EU.",established,,Encyclopaedia Britannica
+l2,28,,German reunification,1990,"East and West Germany unite in October 1990.",established,,Encyclopaedia Britannica
+l3,28,,Dissolution of the Soviet Union,1991,"Part of a wider chain of events with multiple causes.",debated,,Encyclopaedia Britannica
