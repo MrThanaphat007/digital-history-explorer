@@ -1,38 +1,38 @@
-id,year,title,lat,lon,category,description,source,url,date_certainty
-1,-1754,Code of Hammurabi (c.),32.54,44.42,Law,"Babylonian law code inscribed on a stele, dated approximately to the reign of Hammurabi.",Louvre Museum,,approximate
-2,-490,Battle of Marathon,38.15,23.96,War,Athenian-led force defeats a Persian expeditionary army.,Encyclopaedia Britannica,,secure
-3,-331,Battle of Gaugamela,36.55,43.43,War,Alexander the Great defeats Darius III; site location is approximate.,Encyclopaedia Britannica,,secure
-4,-221,Qin unifies China,34.33,108.7,Politics,Qin Shi Huang completes the conquest of rival states and becomes first emperor.,Encyclopaedia Britannica,,secure
-5,-44,Assassination of Julius Caesar,41.9,12.5,Politics,Caesar is killed by senators in Rome on the Ides of March.,Encyclopaedia Britannica,,secure
-6,-27,Augustus becomes first Roman emperor,41.9,12.5,Politics,The Senate grants Octavian the title Augustus; start of the Principate.,Encyclopaedia Britannica,,secure
-7,117,Roman Empire at greatest extent (c.),41.9,12.5,Politics,Commonly dated to the end of Trajan's reign.,Encyclopaedia Britannica,,approximate
-8,330,Constantinople dedicated,41.01,28.98,Politics,Constantine I inaugurates the new eastern capital.,Encyclopaedia Britannica,,secure
-9,476,Western Roman Empire ends,44.42,12.2,Politics,Odoacer deposes Romulus Augustulus; traditional end of the Western Empire.,Encyclopaedia Britannica,,secure
-10,622,Hijra,24.47,39.61,Religion,Muhammad and followers migrate from Mecca to Medina; year 1 of the Islamic calendar.,Encyclopaedia Britannica,,secure
-11,762,Baghdad founded,33.31,44.36,Politics,Caliph al-Mansur founds the Abbasid capital.,Encyclopaedia Britannica,,secure
-12,800,Charlemagne crowned emperor,41.9,12.5,Politics,Crowned by Pope Leo III in Rome on Christmas Day.,Encyclopaedia Britannica,,secure
-13,1066,Battle of Hastings,50.91,0.49,War,William of Normandy defeats Harold Godwinson; Norman conquest of England follows.,Encyclopaedia Britannica,,secure
-14,1215,Magna Carta sealed,51.44,-0.56,Law,King John agrees to the charter at Runnymede.,British Library,,secure
-15,1258,Mongols sack Baghdad,33.31,44.36,War,Siege and capture of Baghdad by Hulagu Khan's forces ends the Abbasid caliphate in the city.,Encyclopaedia Britannica,,secure
-16,1347,Black Death reaches Europe,38.19,15.55,Disease,"Plague arrives by ship at Messina, Sicily, in 1347.",Encyclopaedia Britannica,,secure
-29,1396,Battle of Nicopolis,43.7,24.9,War,Crusader army led by Sigismund of Hungary is defeated by the Ottomans on the Danube.,Encyclopaedia Britannica,,secure
-30,1400,Wenceslaus IV deposed as King of the Romans,50.3,7.61,Politics,"The Rhenish electors declare Wenceslaus deposed at Oberlahnstein on 20 August 1400 and elect Rupert of the Palatinate the next day. Wenceslaus rejects this, opening the succession conflict sometimes called the German civil war of 1400-1411.",Wikipedia: August 1400 imperial election,https://en.wikipedia.org/wiki/August_1400_imperial_election,secure
-31,1402,Sigismund takes custody of Wenceslaus in Vienna,48.21,16.37,Politics,"Sigismund, with the support of Bohemian nobles, holds his half-brother Wenceslaus in custody; Wenceslaus later escapes.",Wikipedia: Moravian Margrave Wars,https://en.wikipedia.org/wiki/Moravian_Margrave_Wars,secure
-32,1411,Sigismund elected King of the Romans,50.11,8.68,Politics,"After Rupert's death and the double election of 1410, Sigismund is elected again on 21 July 1411, following the death of Jobst of Moravia. Wenceslaus votes for him but keeps the royal title.",Wikipedia: 1410-1411 imperial elections,https://en.wikipedia.org/wiki/1410%E2%80%931411_imperial_elections,secure
-33,1414,Council of Constance opens,47.66,9.17,Religion,Held under Sigismund's patronage; it ends the Western Schism in 1417. Sigismund is crowned King of the Romans at Aachen on 8 November 1414.,Encyclopaedia Britannica,,secure
-34,1415,Jan Hus executed at Constance,47.66,9.17,Religion,"The Bohemian reformer is burned for heresy on 6 July 1415, despite a safe-conduct issued by Sigismund.",Encyclopaedia Britannica,,secure
-35,1419,Hussite Wars begin,50.08,14.42,War,Unrest in Prague and the death of Wenceslaus IV on 16 August 1419 open the Hussite Wars; Sigismund is Wenceslaus's heir.,Wikipedia: Wenceslaus IV of Bohemia,https://en.wikipedia.org/wiki/Wenceslaus_IV_of_Bohemia,secure
-36,1433,Sigismund crowned Holy Roman Emperor,41.9,12.5,Politics,Crowned emperor by the pope in Rome.,Encyclopedia.com: Sigismund,https://encyclopedia.com/people/history/german-history-biographies/sigismund,secure
-37,1438,Albert II elected King of the Romans,50.11,8.68,Politics,"Habsburg Albert II, Sigismund's son-in-law, is elected at Frankfurt in March 1438.",Wikipedia: Albert II of Germany,https://en.wikipedia.org/wiki/Albert_II_of_Germany,secure
-17,1453,Fall of Constantinople,41.01,28.98,War,Ottoman forces under Mehmed II capture the city.,Encyclopaedia Britannica,,secure
-18,1492,Columbus's first voyage reaches the Americas,24.1,-74.5,Exploration,"First landfall in the Bahamas; exact island is debated, location approximate.",Encyclopaedia Britannica,,secure
-19,1521,Fall of Tenochtitlan,19.43,-99.13,War,Spanish forces and indigenous allies capture the Aztec capital.,Encyclopaedia Britannica,,secure
-20,1648,Peace of Westphalia,51.96,7.63,Politics,Treaties of Munster and Osnabruck end the Thirty Years' War.,Encyclopaedia Britannica,,secure
-21,1789,French Revolution begins,48.86,2.35,Politics,Storming of the Bastille on 14 July 1789 and adoption of the Declaration of the Rights of Man.,Encyclopaedia Britannica,,secure
-22,1804,Haitian independence,19.45,-72.69,Politics,Haiti declares independence after the Haitian Revolution.,Encyclopaedia Britannica,,secure
-23,1815,Battle of Waterloo,50.68,4.41,War,Napoleon is defeated by Allied armies.,Encyclopaedia Britannica,,secure
-24,1869,Suez Canal opens,30.46,32.35,Trade,Canal links the Mediterranean and the Red Sea.,Encyclopaedia Britannica,,secure
-25,1914,Outbreak of World War I,43.86,18.41,War,Assassination of Archduke Franz Ferdinand in Sarajevo precedes the war.,Encyclopaedia Britannica,,secure
-26,1945,United Nations Charter signed,37.78,-122.42,Politics,Charter signed in San Francisco in June 1945.,United Nations,,secure
-27,1947,Partition of India,28.61,77.21,Politics,British India divided into India and Pakistan.,Encyclopaedia Britannica,,secure
-28,1989,Fall of the Berlin Wall,52.52,13.4,Politics,Border crossings open on 9 November 1989.,Encyclopaedia Britannica,,secure
+id,year,title,lat,lon,category,description,source,url,date_certainty,description_th
+1,-1754,Code of Hammurabi (c.),32.54,44.42,Law,"Babylonian law code inscribed on a stele, dated approximately to the reign of Hammurabi.",Louvre Museum,,approximate,
+2,-490,Battle of Marathon,38.15,23.96,War,Athenian-led force defeats a Persian expeditionary army.,Encyclopaedia Britannica,,secure,
+3,-331,Battle of Gaugamela,36.55,43.43,War,Alexander the Great defeats Darius III; site location is approximate.,Encyclopaedia Britannica,,secure,
+4,-221,Qin unifies China,34.33,108.7,Politics,Qin Shi Huang completes the conquest of rival states and becomes first emperor.,Encyclopaedia Britannica,,secure,
+5,-44,Assassination of Julius Caesar,41.9,12.5,Politics,Caesar is killed by senators in Rome on the Ides of March.,Encyclopaedia Britannica,,secure,จูเลียส ซีซาร์ถูกวุฒิสมาชิกกลุ่มหนึ่งลอบสังหารที่กรุงโรมเมื่อ 15 มีนาคม 44 ปีก่อนคริสตกาล การตายครั้งนี้ทำให้โรมเข้าสู่สงครามกลางเมืองอีกครั้ง
+6,-27,Augustus becomes first Roman emperor,41.9,12.5,Politics,The Senate grants Octavian the title Augustus; start of the Principate.,Encyclopaedia Britannica,,secure,
+7,117,Roman Empire at greatest extent (c.),41.9,12.5,Politics,Commonly dated to the end of Trajan's reign.,Encyclopaedia Britannica,,approximate,
+8,330,Constantinople dedicated,41.01,28.98,Politics,Constantine I inaugurates the new eastern capital.,Encyclopaedia Britannica,,secure,
+9,476,Western Roman Empire ends,44.42,12.2,Politics,Odoacer deposes Romulus Augustulus; traditional end of the Western Empire.,Encyclopaedia Britannica,,secure,ปี ค.ศ. 476 โอโดอาเซอร์ปลดจักรพรรดิโรมูลุส ออกุสตุลุส ซึ่งถือเป็นจุดสิ้นสุดตามธรรมเนียมของจักรวรรดิโรมันตะวันตก ส่วนครึ่งตะวันออกยังคงอยู่ต่อไป
+10,622,Hijra,24.47,39.61,Religion,Muhammad and followers migrate from Mecca to Medina; year 1 of the Islamic calendar.,Encyclopaedia Britannica,,secure,ปี ค.ศ. 622 ท่านศาสดามุฮัมมัดและผู้ติดตามอพยพจากมักกะฮ์ไปมะดีนะฮ์ ปีนี้เป็นปีที่ 1 ของปฏิทินอิสลาม และเป็นจุดเริ่มต้นของชุมชนมุสลิมที่ขยายตัวต่อมา
+11,762,Baghdad founded,33.31,44.36,Politics,Caliph al-Mansur founds the Abbasid capital.,Encyclopaedia Britannica,,secure,
+12,800,Charlemagne crowned emperor,41.9,12.5,Politics,Crowned by Pope Leo III in Rome on Christmas Day.,Encyclopaedia Britannica,,secure,
+13,1066,Battle of Hastings,50.91,0.49,War,William of Normandy defeats Harold Godwinson; Norman conquest of England follows.,Encyclopaedia Britannica,,secure,
+14,1215,Magna Carta sealed,51.44,-0.56,Law,King John agrees to the charter at Runnymede.,British Library,,secure,
+15,1258,Mongols sack Baghdad,33.31,44.36,War,Siege and capture of Baghdad by Hulagu Khan's forces ends the Abbasid caliphate in the city.,Encyclopaedia Britannica,,secure,
+16,1347,Black Death reaches Europe,38.19,15.55,Disease,"Plague arrives by ship at Messina, Sicily, in 1347.",Encyclopaedia Britannica,,secure,ปี ค.ศ. 1347 กาฬโรคมาถึงยุโรปทางเรือที่เมืองเมสซีนา เกาะซิซิลี แล้วแพร่ไปทั่วทวีปในช่วงไม่กี่ปีต่อมา
+29,1396,Battle of Nicopolis,43.7,24.9,War,Crusader army led by Sigismund of Hungary is defeated by the Ottomans on the Danube.,Encyclopaedia Britannica,,secure,
+30,1400,Wenceslaus IV deposed as King of the Romans,50.3,7.61,Politics,"The Rhenish electors declare Wenceslaus deposed at Oberlahnstein on 20 August 1400 and elect Rupert of the Palatinate the next day. Wenceslaus rejects this, opening the succession conflict sometimes called the German civil war of 1400-1411.",Wikipedia: August 1400 imperial election,https://en.wikipedia.org/wiki/August_1400_imperial_election,secure,วันที่ 20 สิงหาคม ค.ศ. 1400 เหล่าผู้เลือกตั้งปลดเวนเซสลาสที่ 4 จากตำแหน่งกษัตริย์แห่งโรมัน และเลือกรูเพิร์ตแทน แต่เวนเซสลาสไม่ยอมรับ จึงเกิดความขัดแย้งแย่งตำแหน่งกันหลายปี
+31,1402,Sigismund takes custody of Wenceslaus in Vienna,48.21,16.37,Politics,"Sigismund, with the support of Bohemian nobles, holds his half-brother Wenceslaus in custody; Wenceslaus later escapes.",Wikipedia: Moravian Margrave Wars,https://en.wikipedia.org/wiki/Moravian_Margrave_Wars,secure,
+32,1411,Sigismund elected King of the Romans,50.11,8.68,Politics,"After Rupert's death and the double election of 1410, Sigismund is elected again on 21 July 1411, following the death of Jobst of Moravia. Wenceslaus votes for him but keeps the royal title.",Wikipedia: 1410-1411 imperial elections,https://en.wikipedia.org/wiki/1410%E2%80%931411_imperial_elections,secure,
+33,1414,Council of Constance opens,47.66,9.17,Religion,Held under Sigismund's patronage; it ends the Western Schism in 1417. Sigismund is crowned King of the Romans at Aachen on 8 November 1414.,Encyclopaedia Britannica,,secure,
+34,1415,Jan Hus executed at Constance,47.66,9.17,Religion,"The Bohemian reformer is burned for heresy on 6 July 1415, despite a safe-conduct issued by Sigismund.",Encyclopaedia Britannica,,secure,
+35,1419,Hussite Wars begin,50.08,14.42,War,Unrest in Prague and the death of Wenceslaus IV on 16 August 1419 open the Hussite Wars; Sigismund is Wenceslaus's heir.,Wikipedia: Wenceslaus IV of Bohemia,https://en.wikipedia.org/wiki/Wenceslaus_IV_of_Bohemia,secure,
+36,1433,Sigismund crowned Holy Roman Emperor,41.9,12.5,Politics,Crowned emperor by the pope in Rome.,Encyclopedia.com: Sigismund,https://encyclopedia.com/people/history/german-history-biographies/sigismund,secure,
+37,1438,Albert II elected King of the Romans,50.11,8.68,Politics,"Habsburg Albert II, Sigismund's son-in-law, is elected at Frankfurt in March 1438.",Wikipedia: Albert II of Germany,https://en.wikipedia.org/wiki/Albert_II_of_Germany,secure,
+17,1453,Fall of Constantinople,41.01,28.98,War,Ottoman forces under Mehmed II capture the city.,Encyclopaedia Britannica,,secure,ปี ค.ศ. 1453 สุลต่านเมห์เหม็ดที่ 2 แห่งออตโตมันยึดกรุงคอนสแตนติโนเปิลได้ ทำให้จักรวรรดิไบแซนไทน์ล่มสลาย
+18,1492,Columbus's first voyage reaches the Americas,24.1,-74.5,Exploration,"First landfall in the Bahamas; exact island is debated, location approximate.",Encyclopaedia Britannica,,secure,ปี ค.ศ. 1492 โคลัมบัสเดินทางไปถึงหมู่เกาะในทะเลแคริบเบียน (บาฮามาส) เป็นจุดเริ่มต้นของการติดต่อระหว่างยุโรปกับทวีปอเมริกาอย่างต่อเนื่อง
+19,1521,Fall of Tenochtitlan,19.43,-99.13,War,Spanish forces and indigenous allies capture the Aztec capital.,Encyclopaedia Britannica,,secure,
+20,1648,Peace of Westphalia,51.96,7.63,Politics,Treaties of Munster and Osnabruck end the Thirty Years' War.,Encyclopaedia Britannica,,secure,
+21,1789,French Revolution begins,48.86,2.35,Politics,Storming of the Bastille on 14 July 1789 and adoption of the Declaration of the Rights of Man.,Encyclopaedia Britannica,,secure,ปี ค.ศ. 1789 ชาวปารีสบุกทลายคุกบาสตีย์เมื่อ 14 กรกฎาคม และมีการประกาศปฏิญญาสิทธิมนุษยชนและพลเมือง เป็นจุดเริ่มต้นของการปฏิวัติฝรั่งเศส
+22,1804,Haitian independence,19.45,-72.69,Politics,Haiti declares independence after the Haitian Revolution.,Encyclopaedia Britannica,,secure,
+23,1815,Battle of Waterloo,50.68,4.41,War,Napoleon is defeated by Allied armies.,Encyclopaedia Britannica,,secure,
+24,1869,Suez Canal opens,30.46,32.35,Trade,Canal links the Mediterranean and the Red Sea.,Encyclopaedia Britannica,,secure,
+25,1914,Outbreak of World War I,43.86,18.41,War,Assassination of Archduke Franz Ferdinand in Sarajevo precedes the war.,Encyclopaedia Britannica,,secure,ปี ค.ศ. 1914 การลอบสังหารอาร์ชดยุกฟรันซ์ เฟอร์ดินานด์ที่ซาราเยโวนำไปสู่สงครามโลกครั้งที่ 1
+26,1945,United Nations Charter signed,37.78,-122.42,Politics,Charter signed in San Francisco in June 1945.,United Nations,,secure,
+27,1947,Partition of India,28.61,77.21,Politics,British India divided into India and Pakistan.,Encyclopaedia Britannica,,secure,ปี ค.ศ. 1947 อินเดียภายใต้การปกครองของอังกฤษถูกแบ่งเป็นสองประเทศ คืออินเดียและปากีสถาน
+28,1989,Fall of the Berlin Wall,52.52,13.4,Politics,Border crossings open on 9 November 1989.,Encyclopaedia Britannica,,secure,วันที่ 9 พฤศจิกายน ค.ศ. 1989 มีการเปิดจุดผ่านแดนของกำแพงเบอร์ลิน ท่ามกลางการเปลี่ยนแปลงครั้งใหญ่ในยุโรปตะวันออก

@@ -220,9 +220,10 @@ TREE_TEMPLATE = """
 <style>
   *{box-sizing:border-box} body{margin:0;font-family:'Inter',system-ui,sans-serif}
   #wrap{--bg1:#2a2d28;--bg2:#1d1f1c;--tx:#eee;--mut:#9aa3ad;--pn:#262823;--ln:#3a3d37;--gold:#d68e73;
+        --pb:#000;--pf:#f2f2f2;--pbd:#555;--dbt:#e0a040;
         position:relative;height:680px;border-radius:10px;overflow:hidden;border:1px solid var(--ln);
         background:radial-gradient(ellipse at center,var(--bg1) 0%,var(--bg2) 75%);color:var(--tx)}
-  #wrap.light{--bg1:#fffdf8;--bg2:#efe6d3;--tx:#2a2420;--mut:#6d635a;--pn:#fffdf8;--ln:#d9ccb2;--gold:#A6644D}
+  #wrap.light{--pb:#fff;--pf:#1d1d1d;--pbd:#bdbdbd;--dbt:#a8620a;--bg1:#fffdf8;--bg2:#efe6d3;--tx:#2a2420;--mut:#6d635a;--pn:#fffdf8;--ln:#d9ccb2;--gold:#A6644D}
   svg{width:100%;height:100%;display:block;cursor:grab;touch-action:none} svg:active{cursor:grabbing}
   .link{fill:none;stroke-linecap:round} .node{cursor:pointer}
   .lbl{fill:var(--tx);font-size:12.5px;pointer-events:none} .yr{fill:var(--mut);font-size:11px;pointer-events:none}
@@ -232,24 +233,28 @@ TREE_TEMPLATE = """
   button{background:var(--pn);color:var(--tx);border:1px solid var(--ln);border-radius:6px;padding:6px 12px;
          font-size:.85rem;cursor:pointer} button:hover{border-color:var(--gold)}
   #legend{font-size:.75rem;color:var(--mut);margin-left:auto;text-align:right}
-  #panel{position:absolute;left:12px;bottom:12px;max-width:430px;background:var(--pn);border:1px solid var(--ln);
-         border-left:4px solid var(--gold);border-radius:8px;padding:12px 16px;z-index:3;
-         box-shadow:0 6px 24px #0006}
-  #panel h3{margin:0 0 2px;font:700 1rem 'Libre Baskerville',Georgia,serif;color:var(--gold)}
-  #panel .m{font-size:.78rem;color:var(--mut);margin-bottom:6px} #panel .d{font-size:.88rem;line-height:1.5}
-  .badge{display:inline-block;padding:1px 8px;border-radius:10px;font-size:.7rem;border:1px solid var(--mut);margin-left:6px}
-  .badge.debated{border-style:dashed;color:#e0a040;border-color:#e0a040}
-  @media (max-width:640px){#panel{right:12px;max-width:none} #legend{display:none}}
+  #pop{position:absolute;z-index:6;width:min(320px,calc(100% - 24px));background:var(--pb);color:var(--pf);
+       border:1px solid var(--pbd);border-radius:6px;padding:12px 16px 14px;font-size:.92rem;line-height:1.6;
+       box-shadow:0 10px 30px #0008}
+  #pop[hidden]{display:none}
+  #pop .t{font:700 1rem 'Libre Baskerville',Georgia,serif;padding-right:22px}
+  #pop .m{font-size:.76rem;opacity:.7;margin:2px 0 8px} #pop .s{font-size:.74rem;opacity:.65;margin-top:10px;line-height:1.45}
+  #pop a{color:inherit;text-decoration:underline}
+  #px{position:absolute;top:2px;right:4px;border:0;background:none;color:var(--pf);font-size:1.3rem;padding:2px 8px;line-height:1}
+  #px:hover{border:0;color:var(--gold)}
+  .badge{display:inline-block;padding:0 8px;border-radius:10px;font-size:.7rem;border:1px solid currentColor;margin-left:8px}
+  .badge.debated{border-style:dashed;color:var(--dbt)}
+  @media (max-width:640px){#legend{display:none}}
 </style>
 <div id="wrap">
   <div id="bar">
     <button id="replay">&#8635; Replay growth</button><button id="zin">+</button>
     <button id="zout">&minus;</button><button id="zfit">Fit</button>
-    <div id="legend">Solid branch = well established &middot; Dashed = debated<br>&#8599; = also an event in the dataset</div>
+    <div id="legend">คลิกที่จุดเพื่ออ่านคำอธิบายภาษาไทย<br>เส้นทึบ = ยอมรับทั่วไป &middot; เส้นประ = ยังถกเถียง &middot; &#8599; = เป็นเหตุการณ์ในระบบด้วย</div>
   </div>
   <svg id="svg"><g id="links"></g><g id="nodes"></g></svg>
-  <div id="panel"><h3 id="pt"></h3><div class="m" id="pm"></div><div class="d" id="pd"></div>
-    <div class="m" id="ps" style="margin-top:8px"></div></div>
+  <div id="pop" hidden><button id="px" aria-label="ปิด">&times;</button><div class="t" id="pt1"></div>
+    <div class="m" id="pm"></div><div id="pth"></div><div class="s" id="ps"></div></div>
 </div>
 <script>
 const D = __DATA__, NS = 'http://www.w3.org/2000/svg';
@@ -264,7 +269,7 @@ const PALETTE = ['#d98324', '#4a90c2', '#3f8f6b', '#b565a7', '#c0392b', '#8aa13a
 const byId = {};
 D.nodes.forEach(n => byId[n.id] = Object.assign({children: []}, n));
 const root = {id: 'root', label: D.root.title, year: D.root.year, detail: D.root.description,
-              source: D.root.source, url: D.root.url, certainty: 'established', children: [], linked: null};
+              source: D.root.source, th: D.root.th, url: D.root.url, certainty: 'established', children: [], linked: null};
 Object.keys(byId).forEach(k => { const n = byId[k]; (n.parent && byId[n.parent] ? byId[n.parent] : root).children.push(n); });
 
 // ---- radial layout: each subtree gets an angle slice proportional to its leaf count
@@ -302,6 +307,7 @@ all.forEach(n => {
   const g = el('g', {class: 'node', transform: `translate(${n.x},${n.y})`}, gN);
   const rad = n.depth === 0 ? 50 : 11;
   if (n.certainty === 'debated') el('circle', {r: rad + 6, fill: 'none', stroke: '#e0a040', 'stroke-dasharray': '4 3', 'stroke-width': 1.5}, g);
+  el('circle', {r: rad + 9, fill: 'transparent'}, g);              // larger invisible click target
   el('circle', {r: rad, fill: colour(n), class: 'main'}, g);
   el('title', {}, g).textContent = n.label + (n.year !== null && n.year !== '' ? ' (' + fmt(n.year) + ')' : '');
   const txt = (lines, x, y0, anchor, cls) => lines.forEach((ln, i) => { const t = el('text', {x, y: y0 + i * 15, 'text-anchor': anchor, class: cls}, g); t.textContent = ln; });
@@ -323,23 +329,37 @@ all.forEach(n => {
   n.el = g; nodeEls.push(g);
 });
 
-// ---- detail panel and path highlighting
+// ---- click a dot: highlight its path back to the centre and open a Thai explanation box
+const pop = document.getElementById('pop');
+function clearFocus() { svg.classList.remove('focus'); all.forEach(m => { m.el.classList.remove('hl'); if (m.linkEl) m.linkEl.classList.remove('hl'); }); }
+function closePop() { pop.hidden = true; clearFocus(); }
+function placePop(n) {
+  pop.hidden = false;
+  const wr = document.getElementById('wrap').getBoundingClientRect(), pt = svg.createSVGPoint(); pt.x = n.x; pt.y = n.y;
+  const sp = pt.matrixTransform(svg.getScreenCTM()), w = pop.offsetWidth || 300, h = pop.offsetHeight || 150;
+  let x = sp.x - wr.left + 18, y = sp.y - wr.top + 14;
+  if (x + w > wr.width - 8) x = sp.x - wr.left - w - 18;
+  if (y + h > wr.height - 8) y = sp.y - wr.top - h - 14;
+  pop.style.left = Math.max(8, x) + 'px'; pop.style.top = Math.max(8, y) + 'px';
+}
 function select(n) {
-  document.getElementById('pt').textContent = n.label;
-  const pm = document.getElementById('pm'); pm.textContent = (fmt(n.year) || 'date not fixed') + (n.depth ? '' : ' \u00b7 starting event');
+  document.getElementById('pt1').textContent = n.label;
+  const pm = document.getElementById('pm'); pm.textContent = (fmt(n.year) || 'ไม่ระบุปีที่แน่ชัด') + (n.depth ? '' : ' \u00b7 เหตุการณ์เริ่มต้น');
   if (n.depth) { const b = document.createElement('span'); b.className = 'badge' + (n.certainty === 'debated' ? ' debated' : '');
-                 b.textContent = n.certainty === 'debated' ? 'debated link' : 'well established'; pm.appendChild(b); }
-  document.getElementById('pd').textContent = n.detail || '';
-  let src = 'Source: ' + (n.source || 'n/a');
-  if (n.linked && D.linked[String(n.linked)]) { const l = D.linked[String(n.linked)]; src += ' \u00b7 Also in the dataset: ' + l.title + ' (' + fmt(l.year) + ')'; }
-  const ps = document.getElementById('ps'); ps.textContent = src;
+                 b.textContent = n.certainty === 'debated' ? 'ยังเป็นข้อถกเถียง' : 'ยอมรับกันทั่วไป'; pm.appendChild(b); }
+  document.getElementById('pth').textContent = n.th || n.detail || '';   // Thai text; English as fallback
+  const ps = document.getElementById('ps'); ps.textContent = 'แหล่งที่มา: ' + (n.source || '-');
+  if (n.linked && D.linked[String(n.linked)]) { const l = D.linked[String(n.linked)]; ps.textContent += ' \u00b7 ตรงกับเหตุการณ์ในระบบ: ' + l.title + ' (' + fmt(l.year) + ')'; }
   if (n.url && String(n.url).startsWith('https://')) { const a = document.createElement('a'); a.href = n.url; a.target = '_blank';
-    a.rel = 'noopener'; a.textContent = ' \u2197 open source'; a.style.color = 'var(--gold)'; ps.appendChild(a); }
+    a.rel = 'noopener'; a.textContent = ' \u2197 เปิดแหล่งที่มา'; ps.appendChild(a); }
   const path = new Set(); for (let c = n; c; c = c.up) path.add(c.id);
   svg.classList.add('focus');
   all.forEach(m => { m.el.classList.toggle('hl', path.has(m.id)); if (m.linkEl) m.linkEl.classList.toggle('hl', path.has(m.id)); });
+  placePop(n);
 }
-svg.addEventListener('click', e => { if (e.target === svg && !moved) { svg.classList.remove('focus'); select(root); svg.classList.remove('focus'); } });
+document.getElementById('px').onclick = closePop;
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePop(); });
+svg.addEventListener('click', e => { if (!moved && !(e.target.closest && e.target.closest('.node'))) closePop(); });
 
 // ---- growth animation: each ring draws outward after the previous one
 let timers = [];
@@ -370,7 +390,7 @@ function fit() {
   let w = x1 - x0, h = y1 - y0; if (w / h < ar) w = h * ar; else h = w / ar;
   vb = {x: (x0 + x1) / 2 - w / 2, y: (y0 + y1) / 2 - h / 2, w, h}; setVB();
 }
-function zoom(k, cx, cy) { const px = cx === undefined ? vb.x + vb.w / 2 : cx, py = cy === undefined ? vb.y + vb.h / 2 : cy;
+function zoom(k, cx, cy) { closePop(); const px = cx === undefined ? vb.x + vb.w / 2 : cx, py = cy === undefined ? vb.y + vb.h / 2 : cy;
   vb = {x: px - (px - vb.x) * k, y: py - (py - vb.y) * k, w: vb.w * k, h: vb.h * k}; setVB(); }
 svg.addEventListener('wheel', e => { e.preventDefault(); const r = svg.getBoundingClientRect();
   zoom(e.deltaY > 0 ? 1.1 : 0.9, vb.x + (e.clientX - r.left) / r.width * vb.w, vb.y + (e.clientY - r.top) / r.height * vb.h); }, {passive: false});
@@ -378,14 +398,14 @@ let drag = null;
 svg.addEventListener('pointerdown', e => { drag = {x: e.clientX, y: e.clientY}; moved = false; });
 window.addEventListener('pointermove', e => { if (!drag) return;
   const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.abs(dx) + Math.abs(dy) > 4) moved = true;
-  if (moved) { vb.x -= dx * vb.w / svg.clientWidth; vb.y -= dy * vb.h / svg.clientHeight; drag = {x: e.clientX, y: e.clientY}; setVB(); } });
+  if (moved) { closePop(); vb.x -= dx * vb.w / svg.clientWidth; vb.y -= dy * vb.h / svg.clientHeight; drag = {x: e.clientX, y: e.clientY}; setVB(); } });
 window.addEventListener('pointerup', () => { drag = null; setTimeout(() => moved = false, 0); });
 document.getElementById('zin').onclick = () => zoom(0.8);
 document.getElementById('zout').onclick = () => zoom(1.25);
 document.getElementById('zfit').onclick = fit;
 document.getElementById('replay').onclick = play;
 window.addEventListener('resize', fit);
-fit(); select(root); svg.classList.remove('focus'); play();
+fit(); play();
 </script>
 """
 
@@ -417,7 +437,7 @@ def _drop_debated(df: pd.DataFrame) -> pd.DataFrame:
 
 def _render_tree(year: int, dark: bool):
     st.caption("Pick a starting event: it sits in the centre, and each ring outward shows what followed from it. "
-               "Click a branch for details, drag to pan, scroll to zoom.")
+               "Click a dot for a short explanation in Thai, drag to pan, scroll to zoom.")
     imp = _load_impacts()
     if imp is None or imp.empty:
         st.info("The cause-and-effect data is missing. Upload data/impacts.csv to the repository and reboot the app.")
@@ -434,6 +454,7 @@ def _render_tree(year: int, dark: bool):
     recs = [{"id": r.id, "parent": "" if pd.isna(r.parent_id) else r.parent_id, "label": r.label,
              "year": None if pd.isna(r.year) else int(r.year), "detail": r.detail, "certainty": r.certainty,
              "linked": None if pd.isna(r.linked_event_id) else int(r.linked_event_id), "source": r.source,
+             "th": r.detail_th if isinstance(getattr(r, "detail_th", None), str) else "",
              "url": getattr(r, "url", None) if isinstance(getattr(r, "url", None), str) else ""}
             for r in nodes.itertuples()]
     linked = {str(int(r.id)): {"title": r.title, "year": int(r.year)}
@@ -441,6 +462,7 @@ def _render_tree(year: int, dark: bool):
     root_ev = ev[ev["id"] == sel].iloc[0]
     root = {"title": root_ev.title, "year": int(root_ev.year), "description": root_ev.description,
             "source": root_ev.source,
+            "th": root_ev.get("description_th") if isinstance(root_ev.get("description_th"), str) else "",
             "url": root_ev.get("url") if isinstance(root_ev.get("url"), str) else ""}
 
     page = ("<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>" + tree_html(root, recs, linked, dark)
@@ -453,7 +475,7 @@ def _render_tree(year: int, dark: bool):
     st.button("Show starting event on map", on_click=_show_on_map, args=(root_ev.to_dict(),), key="show_map_tree")
     with st.expander("All branches with sources"):
         tbl = nodes.assign(when=nodes["year"].map(lambda y: "" if pd.isna(y) else fmt_year(y)))
-        show = [c for c in ["label", "when", "certainty", "detail", "source", "url"] if c in tbl]
+        show = [c for c in ["label", "when", "certainty", "detail", "detail_th", "source", "url"] if c in tbl]
         st.dataframe(tbl[show], hide_index=True, width="stretch",
                      column_config={"url": st.column_config.LinkColumn("link", display_text="open")} if "url" in show else None)
     st.caption("Cause-and-effect links are interpretations. 'Debated' marks links where historians disagree or the "
