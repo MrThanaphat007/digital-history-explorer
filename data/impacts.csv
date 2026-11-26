@@ -1,62 +1,81 @@
-id,root_event_id,parent_id,label,year,detail,certainty,linked_event_id,source
-b1,5,,Second Triumvirate formed,-43,"Octavian (named Caesar's heir in his will), Mark Antony and Lepidus take joint emergency powers.",established,,Encyclopaedia Britannica
-b1a,5,b1,Conspirators defeated at Philippi,-42,"Antony and Octavian defeat Brutus and Cassius.",established,,Encyclopaedia Britannica
-b1b,5,b1,Battle of Actium,-31,"Octavian's fleet defeats Antony and Cleopatra.",established,,Encyclopaedia Britannica
-b1b1,5,b1b,Egypt becomes a Roman province,-30,"Octavian annexes Egypt after the deaths of Antony and Cleopatra.",established,,Encyclopaedia Britannica
-b1b2,5,b1b,Augustus becomes first emperor,-27,"The Senate grants Octavian the title Augustus; start of the Principate.",established,6,Encyclopaedia Britannica
-b2,5,,Caesar officially deified,-42,"The Senate recognises Caesar as a state god.",established,,Encyclopaedia Britannica
-d1,9,,Successor kingdoms rule former Western provinces,476,"Germanic-led kingdoms such as the Ostrogoths, Visigoths and Franks hold power in former Western territories.",established,,Encyclopaedia Britannica
-d1a,9,d1,Frankish kingdom grows into a major Western power,,"Under the Merovingian and later Carolingian dynasties.",established,,Encyclopaedia Britannica
-d1a1,9,d1a,Charlemagne crowned emperor,800,"The imperial title is revived in the West.",established,12,Encyclopaedia Britannica
-d2,9,,Eastern Roman (Byzantine) Empire continues,476,"The eastern half of the empire survives for nearly a thousand years.",established,,Encyclopaedia Britannica
-d2a,9,d2,Justinian's campaigns to reconquer the West,533,"Begins with the war against the Vandals in North Africa.",established,,Encyclopaedia Britannica
-d2b,9,d2,Fall of Constantinople,1453,"The Byzantine state ends when Ottoman forces capture its capital.",established,17,Encyclopaedia Britannica
-d3,9,,Historians debate how abrupt the change was,,"Some historians describe a gradual transformation of the Roman world rather than a sudden collapse.",debated,,Encyclopaedia Britannica
-e1,10,,Muslim community established at Medina,622,"The first Muslim community-state takes shape.",established,,Encyclopaedia Britannica
-e1a,10,e1,Islamic calendar counts years from the Hijra,622,"The calendar was introduced later; year 1 is the year of the Hijra.",established,,Encyclopaedia Britannica
-e2,10,,Rapid expansion of Muslim-ruled territory,,"Within about a century Muslim rule extended from Iberia to Central Asia.",established,,Encyclopaedia Britannica
-e2a,10,e2,Umayyad caliphate,661,"First hereditary caliphate, ruling from Damascus.",established,,Encyclopaedia Britannica
-e2b,10,e2,Abbasid caliphate replaces the Umayyads,750,"Dynastic change in the caliphate.",established,,Encyclopaedia Britannica
-e2b1,10,e2b,Baghdad founded,762,"Caliph al-Mansur founds the new Abbasid capital.",established,11,Encyclopaedia Britannica
-e2c,10,e2,Umayyad emirate in Cordoba,756,"A branch of the Umayyads establishes rule in Iberia.",established,,Encyclopaedia Britannica
-f1,16,,Mass mortality in Europe,1347,"A large share of Europe's population died in the following years; estimates vary by region and source.",established,,Encyclopaedia Britannica
-f2,16,,Labour shortages,1350,"With fewer workers, labour became scarcer in many regions.",established,,Encyclopaedia Britannica
-f2a,16,f2,Statute of Labourers (England),1351,"An attempt to hold wages at pre-plague levels.",established,,Encyclopaedia Britannica
-f2a1,16,f2a,Peasants' Revolt in England,1381,"Tensions over labour laws and taxation are often cited among its background causes; historians stress multiple causes.",debated,,Encyclopaedia Britannica
-f3,16,,Persecution of Jewish communities,1348,"Plague rumours led to massacres of Jews in several European towns, for example Strasbourg in 1349.",established,,Encyclopaedia Britannica
-f4,16,,Plague outbreaks recur,,"Plague returned in waves for centuries.",established,,Encyclopaedia Britannica
-g1,17,,End of the Byzantine Empire,1453,"The last remnant of the Roman state in the East ends.",established,,Encyclopaedia Britannica
-g1a,17,g1,Constantinople becomes the Ottoman capital,1453,"The city, later known as Istanbul, becomes the centre of Ottoman rule.",established,,Encyclopaedia Britannica
-g1a1,17,g1a,Ottoman power grows in southeast Europe and the eastern Mediterranean,,"Ottoman expansion continued in the following decades.",established,,Encyclopaedia Britannica
-g2,17,,Greek scholars move to Italy,,"Some Byzantine scholars settled in Italy; historians debate how much this shaped the Renaissance, since contacts began earlier.",debated,,Encyclopaedia Britannica
-g3,17,,Search for alternative trade routes,,"A traditional explanation for European maritime exploration; historians note Portuguese voyages began decades earlier.",debated,18,Encyclopaedia Britannica
-h1,18,,Sustained European contact with the Americas,1492,"Start of lasting contact between Europe and the Americas.",established,,Encyclopaedia Britannica
-h1a,18,h1,Columbian exchange of crops and animals,,"Maize and potatoes spread to the Old World; horses and wheat were introduced to the Americas.",established,,Encyclopaedia Britannica
-h1b,18,h1,Epidemic disease among indigenous peoples,,"Diseases introduced from Europe caused severe population decline; the scale is debated.",established,,Encyclopaedia Britannica
-h2,18,,Spanish colonisation begins,,"Spanish settlement starts in the Caribbean and spreads to the mainland.",established,,Encyclopaedia Britannica
-h2a,18,h2,Treaty of Tordesillas,1494,"Spain and Portugal agree to divide newly encountered lands.",established,,Encyclopaedia Britannica
-h2b,18,h2,Fall of Tenochtitlan,1521,"Spanish forces and indigenous allies conquer the Aztec capital.",established,19,Encyclopaedia Britannica
-h3,18,,Plantation economies and the transatlantic slave trade,1501,"Colonial economies drove demand for forced labour. The voyages database records about 12.5 million people embarked between 1501 and 1866 (see the Data Analysis page).",established,,SlaveVoyages (Trans-Atlantic Slave Trade Database)
-i1,21,,Declaration of the Rights of Man and of the Citizen,1789,"Adopted in August 1789 (see the Archive).",established,,Encyclopaedia Britannica
-i2,21,,Monarchy abolished; First Republic proclaimed,1792,"The French monarchy ends.",established,,Encyclopaedia Britannica
-i2a,21,i2,Louis XVI executed,1793,"The king is put to death in January 1793.",established,,Encyclopaedia Britannica
-i3,21,,Haitian Revolution,1791,"Enslaved people in Saint-Domingue rise in 1791, in a colonial setting shaped by revolutionary France.",established,22,Encyclopaedia Britannica
-i4,21,,Revolutionary and Napoleonic Wars,1792,"A long series of wars involving France and most European powers.",established,,Encyclopaedia Britannica
-i4a,21,i4,Napoleon takes power,1799,"Napoleon Bonaparte seizes power in a coup.",established,,Encyclopaedia Britannica
-i4b,21,i4,Congress of Vienna,1815,"The powers redraw the European order after the Napoleonic Wars.",established,,Encyclopaedia Britannica
-i4c,21,i4,Battle of Waterloo,1815,"Napoleon is defeated by Allied armies.",established,23,Encyclopaedia Britannica
-j1,25,,Collapse of empires,1918,"The German, Austro-Hungarian, Russian and Ottoman empires ended between 1917 and 1922.",established,,Encyclopaedia Britannica
-j2,25,,Russian Revolution,1917,"Strain from the war contributed to the fall of the tsarist state.",established,,Encyclopaedia Britannica
-j2a,25,j2,Soviet Union formed,1922,"The USSR is established.",established,,Encyclopaedia Britannica
-j3,25,,Treaty of Versailles,1919,"Peace settlement with Germany.",established,,Encyclopaedia Britannica
-j3a,25,j3,Debated link to the Second World War,,"Historians disagree about how much the settlement contributed to later conflict.",debated,,Encyclopaedia Britannica
-j4,25,,League of Nations created,1920,"International organisation founded after the war.",established,,Encyclopaedia Britannica
-j4a,25,j4,United Nations succeeds the League,1945,"The UN Charter is signed in San Francisco.",established,26,Encyclopaedia Britannica
-k1,27,,India and Pakistan become independent states,1947,"British India is divided.",established,,Encyclopaedia Britannica
-k1a,27,k1,East Pakistan becomes Bangladesh,1971,"A later development within the state created in 1947.",established,,Encyclopaedia Britannica
-k2,27,,Mass displacement,1947,"Millions were displaced across the new border; estimates of the total vary widely.",established,,Encyclopaedia Britannica
-k3,27,,Kashmir dispute,1947,"The first India-Pakistan war began in 1947; the dispute continues.",established,,Encyclopaedia Britannica
-l1,28,,Revolutions across the Eastern Bloc,1989,"The fall of the Wall came amid a wider wave of change in Eastern Europe.",established,,Encyclopaedia Britannica
-l1a,28,l1,European Union enlargement of 2004,2004,"Several former Eastern Bloc states joined the EU.",established,,Encyclopaedia Britannica
-l2,28,,German reunification,1990,"East and West Germany unite in October 1990.",established,,Encyclopaedia Britannica
-l3,28,,Dissolution of the Soviet Union,1991,"Part of a wider chain of events with multiple causes.",debated,,Encyclopaedia Britannica
+id,root_event_id,parent_id,label,year,detail,certainty,linked_event_id,source,url
+b1,5,,Second Triumvirate formed,-43.0,"Octavian (named Caesar's heir in his will), Mark Antony and Lepidus take joint emergency powers.",established,,Encyclopaedia Britannica,
+b1a,5,b1,Conspirators defeated at Philippi,-42.0,Antony and Octavian defeat Brutus and Cassius.,established,,Encyclopaedia Britannica,
+b1b,5,b1,Battle of Actium,-31.0,Octavian's fleet defeats Antony and Cleopatra.,established,,Encyclopaedia Britannica,
+b1b1,5,b1b,Egypt becomes a Roman province,-30.0,Octavian annexes Egypt after the deaths of Antony and Cleopatra.,established,,Encyclopaedia Britannica,
+b1b2,5,b1b,Augustus becomes first emperor,-27.0,The Senate grants Octavian the title Augustus; start of the Principate.,established,6.0,Encyclopaedia Britannica,
+b2,5,,Caesar officially deified,-42.0,The Senate recognises Caesar as a state god.,established,,Encyclopaedia Britannica,
+d1,9,,Successor kingdoms rule former Western provinces,476.0,"Germanic-led kingdoms such as the Ostrogoths, Visigoths and Franks hold power in former Western territories.",established,,Encyclopaedia Britannica,
+d1a,9,d1,Frankish kingdom grows into a major Western power,,Under the Merovingian and later Carolingian dynasties.,established,,Encyclopaedia Britannica,
+d1a1,9,d1a,Charlemagne crowned emperor,800.0,The imperial title is revived in the West.,established,12.0,Encyclopaedia Britannica,
+d2,9,,Eastern Roman (Byzantine) Empire continues,476.0,The eastern half of the empire survives for nearly a thousand years.,established,,Encyclopaedia Britannica,
+d2a,9,d2,Justinian's campaigns to reconquer the West,533.0,Begins with the war against the Vandals in North Africa.,established,,Encyclopaedia Britannica,
+d2b,9,d2,Fall of Constantinople,1453.0,The Byzantine state ends when Ottoman forces capture its capital.,established,17.0,Encyclopaedia Britannica,
+d3,9,,Historians debate how abrupt the change was,,Some historians describe a gradual transformation of the Roman world rather than a sudden collapse.,debated,,Encyclopaedia Britannica,
+e1,10,,Muslim community established at Medina,622.0,The first Muslim community-state takes shape.,established,,Encyclopaedia Britannica,
+e1a,10,e1,Islamic calendar counts years from the Hijra,622.0,The calendar was introduced later; year 1 is the year of the Hijra.,established,,Encyclopaedia Britannica,
+e2,10,,Rapid expansion of Muslim-ruled territory,,Within about a century Muslim rule extended from Iberia to Central Asia.,established,,Encyclopaedia Britannica,
+e2a,10,e2,Umayyad caliphate,661.0,"First hereditary caliphate, ruling from Damascus.",established,,Encyclopaedia Britannica,
+e2b,10,e2,Abbasid caliphate replaces the Umayyads,750.0,Dynastic change in the caliphate.,established,,Encyclopaedia Britannica,
+e2b1,10,e2b,Baghdad founded,762.0,Caliph al-Mansur founds the new Abbasid capital.,established,11.0,Encyclopaedia Britannica,
+e2c,10,e2,Umayyad emirate in Cordoba,756.0,A branch of the Umayyads establishes rule in Iberia.,established,,Encyclopaedia Britannica,
+f1,16,,Mass mortality in Europe,1347.0,A large share of Europe's population died in the following years; estimates vary by region and source.,established,,Encyclopaedia Britannica,
+f2,16,,Labour shortages,1350.0,"With fewer workers, labour became scarcer in many regions.",established,,Encyclopaedia Britannica,
+f2a,16,f2,Statute of Labourers (England),1351.0,An attempt to hold wages at pre-plague levels.,established,,Encyclopaedia Britannica,
+f2a1,16,f2a,Peasants' Revolt in England,1381.0,Tensions over labour laws and taxation are often cited among its background causes; historians stress multiple causes.,debated,,Encyclopaedia Britannica,
+f3,16,,Persecution of Jewish communities,1348.0,"Plague rumours led to massacres of Jews in several European towns, for example Strasbourg in 1349.",established,,Encyclopaedia Britannica,
+f4,16,,Plague outbreaks recur,,Plague returned in waves for centuries.,established,,Encyclopaedia Britannica,
+g1,17,,End of the Byzantine Empire,1453.0,The last remnant of the Roman state in the East ends.,established,,Encyclopaedia Britannica,
+g1a,17,g1,Constantinople becomes the Ottoman capital,1453.0,"The city, later known as Istanbul, becomes the centre of Ottoman rule.",established,,Encyclopaedia Britannica,
+g1a1,17,g1a,Ottoman power grows in southeast Europe and the eastern Mediterranean,,Ottoman expansion continued in the following decades.,established,,Encyclopaedia Britannica,
+g2,17,,Greek scholars move to Italy,,"Some Byzantine scholars settled in Italy; historians debate how much this shaped the Renaissance, since contacts began earlier.",debated,,Encyclopaedia Britannica,
+g3,17,,Search for alternative trade routes,,A traditional explanation for European maritime exploration; historians note Portuguese voyages began decades earlier.,debated,18.0,Encyclopaedia Britannica,
+h1,18,,Sustained European contact with the Americas,1492.0,Start of lasting contact between Europe and the Americas.,established,,Encyclopaedia Britannica,
+h1a,18,h1,Columbian exchange of crops and animals,,Maize and potatoes spread to the Old World; horses and wheat were introduced to the Americas.,established,,Encyclopaedia Britannica,
+h1b,18,h1,Epidemic disease among indigenous peoples,,Diseases introduced from Europe caused severe population decline; the scale is debated.,established,,Encyclopaedia Britannica,
+h2,18,,Spanish colonisation begins,,Spanish settlement starts in the Caribbean and spreads to the mainland.,established,,Encyclopaedia Britannica,
+h2a,18,h2,Treaty of Tordesillas,1494.0,Spain and Portugal agree to divide newly encountered lands.,established,,Encyclopaedia Britannica,
+h2b,18,h2,Fall of Tenochtitlan,1521.0,Spanish forces and indigenous allies conquer the Aztec capital.,established,19.0,Encyclopaedia Britannica,
+h3,18,,Plantation economies and the transatlantic slave trade,1501.0,Colonial economies drove demand for forced labour. The voyages database records about 12.5 million people embarked between 1501 and 1866 (see the Data Analysis page).,established,,SlaveVoyages (Trans-Atlantic Slave Trade Database),
+i1,21,,Declaration of the Rights of Man and of the Citizen,1789.0,Adopted in August 1789 (see the Archive).,established,,Encyclopaedia Britannica,
+i2,21,,Monarchy abolished; First Republic proclaimed,1792.0,The French monarchy ends.,established,,Encyclopaedia Britannica,
+i2a,21,i2,Louis XVI executed,1793.0,The king is put to death in January 1793.,established,,Encyclopaedia Britannica,
+i3,21,,Haitian Revolution,1791.0,"Enslaved people in Saint-Domingue rise in 1791, in a colonial setting shaped by revolutionary France.",established,22.0,Encyclopaedia Britannica,
+i4,21,,Revolutionary and Napoleonic Wars,1792.0,A long series of wars involving France and most European powers.,established,,Encyclopaedia Britannica,
+i4a,21,i4,Napoleon takes power,1799.0,Napoleon Bonaparte seizes power in a coup.,established,,Encyclopaedia Britannica,
+i4b,21,i4,Congress of Vienna,1815.0,The powers redraw the European order after the Napoleonic Wars.,established,,Encyclopaedia Britannica,
+i4c,21,i4,Battle of Waterloo,1815.0,Napoleon is defeated by Allied armies.,established,23.0,Encyclopaedia Britannica,
+j1,25,,Collapse of empires,1918.0,"The German, Austro-Hungarian, Russian and Ottoman empires ended between 1917 and 1922.",established,,Encyclopaedia Britannica,
+j2,25,,Russian Revolution,1917.0,Strain from the war contributed to the fall of the tsarist state.,established,,Encyclopaedia Britannica,
+j2a,25,j2,Soviet Union formed,1922.0,The USSR is established.,established,,Encyclopaedia Britannica,
+j3,25,,Treaty of Versailles,1919.0,Peace settlement with Germany.,established,,Encyclopaedia Britannica,
+j3a,25,j3,Debated link to the Second World War,,Historians disagree about how much the settlement contributed to later conflict.,debated,,Encyclopaedia Britannica,
+j4,25,,League of Nations created,1920.0,International organisation founded after the war.,established,,Encyclopaedia Britannica,
+j4a,25,j4,United Nations succeeds the League,1945.0,The UN Charter is signed in San Francisco.,established,26.0,Encyclopaedia Britannica,
+k1,27,,India and Pakistan become independent states,1947.0,British India is divided.,established,,Encyclopaedia Britannica,
+k1a,27,k1,East Pakistan becomes Bangladesh,1971.0,A later development within the state created in 1947.,established,,Encyclopaedia Britannica,
+k2,27,,Mass displacement,1947.0,Millions were displaced across the new border; estimates of the total vary widely.,established,,Encyclopaedia Britannica,
+k3,27,,Kashmir dispute,1947.0,The first India-Pakistan war began in 1947; the dispute continues.,established,,Encyclopaedia Britannica,
+l1,28,,Revolutions across the Eastern Bloc,1989.0,The fall of the Wall came amid a wider wave of change in Eastern Europe.,established,,Encyclopaedia Britannica,
+l1a,28,l1,European Union enlargement of 2004,2004.0,Several former Eastern Bloc states joined the EU.,established,,Encyclopaedia Britannica,
+l2,28,,German reunification,1990.0,East and West Germany unite in October 1990.,established,,Encyclopaedia Britannica,
+l3,28,,Dissolution of the Soviet Union,1991.0,Part of a wider chain of events with multiple causes.,debated,,Encyclopaedia Britannica,
+m1,30,,Rupert of the Palatinate elected,1400.0,Elected at Rhens on 21 August 1400 and crowned on 6 January 1401; Wenceslaus never accepted the deposition.,established,,"Wikipedia: Rupert, King of the Romans","https://en.wikipedia.org/wiki/Rupert,_King_of_the_Romans"
+m1a,30,m1,Rupert dies; double election,1410.0,Rupert died on 18 May 1410. Sigismund was elected by three electors on 10 September and Jobst of Moravia by four on 1 October; Jobst died on 18 January 1411.,established,,Wikipedia: Jobst of Moravia,https://en.wikipedia.org/wiki/Jobst_of_Moravia
+m2,30,,Wenceslaus keeps the Bohemian crown,1400.0,He stayed King of Bohemia until his death in 1419 and still regarded himself as rightful king of the Romans.,established,,Wikipedia: Wenceslaus IV of Bohemia,https://en.wikipedia.org/wiki/Wenceslaus_IV_of_Bohemia
+m2a,30,m2,Sigismund takes Wenceslaus into custody,1402.0,"Sigismund, with Bohemian noble support, imprisoned his half-brother; Wenceslaus later escaped.",established,31.0,Wikipedia: Moravian Margrave Wars,https://en.wikipedia.org/wiki/Moravian_Margrave_Wars
+m2b,30,m2,Wenceslaus dies; Sigismund is heir,1419.0,Wenceslaus died on 16 August 1419 and Sigismund was his heir to the Bohemian crown.,established,,Wikipedia: Wenceslaus IV of Bohemia,https://en.wikipedia.org/wiki/Wenceslaus_IV_of_Bohemia
+m2c,30,m2b,Hussite Wars,1419.0,Religious and political conflict in Bohemia in which Hussites resisted Sigismund's claim to the crown.,established,35.0,EBSCO Research Starters: Hussite Wars,https://www.ebsco.com/research-starters/history/hussite-wars
+m2c1,30,m2c,Crusades against the Hussites,1420.0,The papacy proclaimed five crusades against Hussite Bohemia; Sigismund took part in the campaigns.,established,,EBSCO Research Starters: Hussite Wars,https://www.ebsco.com/research-starters/history/hussite-wars
+m2c2,30,m2c,Battle of Lipany,1434.0,"On 30 May 1434 moderate Hussites and Catholics defeat the radical Taborites, virtually ending the Hussite Wars.",established,,Encyclopaedia Britannica: Hussite,https://www.britannica.com/topic/Hussite
+m2c3,30,m2c,Sigismund accepted as King of Bohemia,1436.0,The Compactata of July 1436 finally gave Sigismund rule over Bohemia.,established,,EBSCO Research Starters: Hussite Wars,https://www.ebsco.com/research-starters/history/hussite-wars
+m3,30,,Sigismund elected King of the Romans,1411.0,"After Rupert's death and the death of Jobst, Sigismund became king of the Romans, while also King of Hungary.",established,32.0,Wikipedia: 1410-1411 imperial elections,https://en.wikipedia.org/wiki/1410%E2%80%931411_imperial_elections
+m3a,30,m3,Council of Constance,1414.0,"Held under Sigismund's patronage, 1414-1418.",established,33.0,Encyclopaedia Britannica,
+m3a1,30,m3a,Western Schism ended,1417.0,The council ends the split in the papacy with the election of Pope Martin V.,established,,Encyclopaedia Britannica,
+m3a2,30,m3a,Jan Hus executed,1415.0,The Bohemian reformer is burned at Constance; his death is a trigger for the Hussite movement's radicalisation.,established,34.0,Encyclopaedia Britannica,
+m3a3,30,m3a,Sigismund's responsibility for Hus's death,1415.0,Hus travelled under Sigismund's safe-conduct; historians debate how much responsibility Sigismund bears for his execution.,debated,,Encyclopaedia Britannica,
+m3b,30,m3,Imperial coronation in Rome,1433.0,The pope crowns Sigismund emperor.,established,36.0,Encyclopedia.com: Sigismund,https://encyclopedia.com/people/history/german-history-biographies/sigismund
+m3b1,30,m3b,Sigismund dies; Luxembourg male line ends,1437.0,"Sigismund died in December 1437 and his daughter's husband, Albert of Habsburg, was his heir.",established,,Wikipedia: Albert II of Germany,https://en.wikipedia.org/wiki/Albert_II_of_Germany
+m3b2,30,m3b1,Albert II elected King of the Romans,1438.0,Elected at Frankfurt in March 1438.,established,37.0,Wikipedia: Albert II of Germany,https://en.wikipedia.org/wiki/Albert_II_of_Germany
+m3b3,30,m3b1,Habsburgs hold the crown almost continuously,1438.0,The Habsburgs held the German kingship and imperial title almost without break until 1806; the main exception is Charles VII of Bavaria (1742-1745).,established,,Encyclopaedia Britannica,
+m4,30,,Was the deposition legitimate?,,The electors cited Wenceslaus's failure to end the papal schism and keep the peace; he and later writers disputed their right to depose a king.,debated,,EBSCO Research Starters: Wenceslaus,https://www.ebsco.com/research-starters/biography/wenceslaus

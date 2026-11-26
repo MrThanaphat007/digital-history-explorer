@@ -3,7 +3,7 @@ import folium
 import streamlit as st
 from streamlit_folium import st_folium
 from db import query
-from utils import base_map, fmt_year, era_of, ERAS
+from utils import base_map, fmt_year, era_of, ERAS, cert_badge, src_link
 
 
 def render(year: int, dark: bool):
@@ -29,8 +29,8 @@ def render(year: int, dark: bool):
     st.write(f"**{len(df)}** entries")
     for r in df.itertuples():
         st.markdown(f"<div class='card'><h4 style='margin:0'>{r.title}</h4>"
-                    f"<div class='meta'>{r.date_text} - {r.type} - {r.civilization} ({r.region})</div>"
-                    f"<p>{r.description}</p><div class='meta'>Source: {r.source}</div></div>", unsafe_allow_html=True)
+                    f"<div class='meta'>{r.date_text}{cert_badge(getattr(r, 'date_certainty', None))} - {r.type} - {r.civilization} ({r.region})</div>"
+                    f"<p>{r.description}</p><div class='meta'>Source: {src_link(r.source, getattr(r, 'url', None))}</div></div>", unsafe_allow_html=True)
 
     located = df.dropna(subset=["lat", "lon"])
     if not located.empty:

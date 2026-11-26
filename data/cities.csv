@@ -1,20 +1,24 @@
-name,lat,lon,year_start,region,civilization,note,source
-Memphis (Egypt),29.85,31.25,-3100,Africa,Ancient Egypt,"Traditional capital of unified Egypt; foundation date is traditional and approximate (c.)",Encyclopaedia Britannica
-Babylon,32.54,44.42,-1894,Middle East,Babylonia,"Rose to prominence under the Amorite dynasty; Hammurabi reigned c.1792-1750 BCE (year_start approximate)",Encyclopaedia Britannica
-Carthage,36.85,10.33,-814,Africa,Carthage,"Traditional foundation date by Phoenician settlers from Tyre",Encyclopaedia Britannica
-Rome,41.90,12.50,-753,Europe,Rome,"Traditional foundation date (legendary; archaeology suggests settlement earlier)",Encyclopaedia Britannica
-Athens,37.98,23.73,-1400,Europe,Ancient Greece,"Continuously inhabited for millennia; year_start is a rough marker of Mycenaean-era importance",Encyclopaedia Britannica
-Persepolis,29.93,52.89,-518,Middle East,Achaemenid Persia,"Construction began under Darius I c.518 BCE",UNESCO World Heritage Centre
-Alexandria,31.20,29.92,-331,Africa,Hellenistic Egypt,"Founded by Alexander the Great",Encyclopaedia Britannica
-Chang'an (Xi'an),34.27,108.95,-202,Asia,Han China,"Capital of the Western Han dynasty from its founding in 202 BCE",Encyclopaedia Britannica
-Constantinople,41.01,28.98,330,Europe,Roman / Byzantine Empire,"Dedicated by Constantine I in 330 CE; now Istanbul",Encyclopaedia Britannica
-Mecca,21.42,39.83,622,Middle East,Islamic world,"Year marks the Hijra; Mecca was a settlement long before",Encyclopaedia Britannica
-Baghdad,33.31,44.36,762,Middle East,Abbasid Caliphate,"Founded by Caliph al-Mansur",Encyclopaedia Britannica
-Kyoto,35.01,135.77,794,Asia,Japan,"Founded as Heian-kyo, imperial capital",Encyclopaedia Britannica
-Samarkand,39.65,66.96,-700,Asia,Central Asia,"Ancient city (Afrasiab); year_start is a rough approximation",UNESCO World Heritage Centre
-Cordoba,37.88,-4.78,756,Europe,Al-Andalus,"Became capital of the Umayyad emirate in 756",Encyclopaedia Britannica
-Angkor,13.41,103.87,802,Asia,Khmer Empire,"Jayavarman II proclaimed kingship in 802 CE",UNESCO World Heritage Centre
-Venice,45.44,12.32,697,Europe,Venetian Republic,"Traditional date of the first doge (697 CE)",Encyclopaedia Britannica
-Timbuktu,16.77,-3.01,1100,Africa,Mali / Songhai region,"Founded around the 11th-12th century (approximate)",UNESCO World Heritage Centre
-Tenochtitlan,19.43,-99.13,1325,Americas,Aztec (Mexica),"Traditional foundation date; site is now Mexico City",Encyclopaedia Britannica
-Cusco,-13.53,-71.97,1200,Americas,Inca,"Traditional Inca capital; date approximate",UNESCO World Heritage Centre
+name,lat,lon,year_start,region,civilization,note,source,url,date_certainty
+Memphis (Egypt),29.85,31.25,-3100,Africa,Ancient Egypt,Traditional capital of unified Egypt; foundation date is traditional and approximate (c.),Encyclopaedia Britannica,,traditional
+Babylon,32.54,44.42,-1894,Middle East,Babylonia,Rose to prominence under the Amorite dynasty; Hammurabi reigned c.1792-1750 BCE (year_start approximate),Encyclopaedia Britannica,,approximate
+Carthage,36.85,10.33,-814,Africa,Carthage,Traditional foundation date by Phoenician settlers from Tyre,Encyclopaedia Britannica,,traditional
+Rome,41.9,12.5,-753,Europe,Rome,Traditional foundation date (legendary; archaeology suggests settlement earlier),Encyclopaedia Britannica,,traditional
+Athens,37.98,23.73,-1400,Europe,Ancient Greece,Continuously inhabited for millennia; year_start is a rough marker of Mycenaean-era importance,Encyclopaedia Britannica,,approximate
+Persepolis,29.93,52.89,-518,Middle East,Achaemenid Persia,Construction began under Darius I c.518 BCE,UNESCO World Heritage Centre,,secure
+Alexandria,31.2,29.92,-331,Africa,Hellenistic Egypt,Founded by Alexander the Great,Encyclopaedia Britannica,,secure
+Chang'an (Xi'an),34.27,108.95,-202,Asia,Han China,Capital of the Western Han dynasty from its founding in 202 BCE,Encyclopaedia Britannica,,secure
+Constantinople,41.01,28.98,330,Europe,Roman / Byzantine Empire,Dedicated by Constantine I in 330 CE; now Istanbul,Encyclopaedia Britannica,,secure
+Mecca,21.42,39.83,622,Middle East,Islamic world,Year marks the Hijra; Mecca was a settlement long before,Encyclopaedia Britannica,,secure
+Baghdad,33.31,44.36,762,Middle East,Abbasid Caliphate,Founded by Caliph al-Mansur,Encyclopaedia Britannica,,secure
+Kyoto,35.01,135.77,794,Asia,Japan,"Founded as Heian-kyo, imperial capital",Encyclopaedia Britannica,,secure
+Samarkand,39.65,66.96,-700,Asia,Central Asia,Ancient city (Afrasiab); year_start is a rough approximation,UNESCO World Heritage Centre,,approximate
+Cordoba,37.88,-4.78,756,Europe,Al-Andalus,Became capital of the Umayyad emirate in 756,Encyclopaedia Britannica,,secure
+Angkor,13.41,103.87,802,Asia,Khmer Empire,Jayavarman II proclaimed kingship in 802 CE,UNESCO World Heritage Centre,,secure
+Venice,45.44,12.32,697,Europe,Venetian Republic,Traditional date of the first doge (697 CE),Encyclopaedia Britannica,,traditional
+Timbuktu,16.77,-3.01,1100,Africa,Mali / Songhai region,Founded around the 11th-12th century (approximate),UNESCO World Heritage Centre,,approximate
+Tenochtitlan,19.43,-99.13,1325,Americas,Aztec (Mexica),Traditional foundation date; site is now Mexico City,Encyclopaedia Britannica,,traditional
+Cusco,-13.53,-71.97,1200,Americas,Inca,Traditional Inca capital; date approximate,UNESCO World Heritage Centre,,traditional
+Prague,50.09,14.42,1346,Europe,Kingdom of Bohemia,Imperial residence under Charles IV from his election as King of the Romans (1346); the city is much older,Encyclopaedia Britannica,,approximate
+Vienna,48.21,16.37,1156,Europe,Duchy of Austria,Became capital of the duchy of Austria under the Babenbergs (1156); the city is much older,Encyclopaedia Britannica,,approximate
+Aachen,50.78,6.08,800,Europe,Carolingian / Holy Roman Empire,Charlemagne's residence; later the usual coronation site of German kings,Encyclopaedia Britannica,,approximate
+Konstanz,47.66,9.17,1414,Europe,Holy Roman Empire,Notable here from the Council of Constance (1414-1418); the city is much older,Encyclopaedia Britannica,,approximate

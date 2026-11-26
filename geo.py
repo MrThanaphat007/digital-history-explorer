@@ -41,8 +41,7 @@ def load_borders(year: int) -> gpd.GeoDataFrame:
 
 def colour_for(name: str) -> str:
     """Stable colour per polity name (crc32 is stable between runs, unlike hash())."""
-    palette = ["#7a1f2b", "#b08d57", "#3f6b5c", "#4a5d8a", "#8a5a83", "#a8602f",
-               "#5b7f95", "#6b6b3a", "#9c4a4a", "#487a7a", "#7d6a4f", "#5c4b8a"]
+    palette = ["#777A61", "#A6644D", "#9a9885", "#8a8f70", "#B58A6E", "#6E7260"]
     return palette[zlib.crc32(name.encode()) % len(palette)]
 
 

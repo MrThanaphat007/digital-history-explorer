@@ -1,7 +1,8 @@
-streamlit>=1.50
-streamlit-folium>=0.20
-folium>=0.16
-geopandas>=0.14
-pandas>=2.0
-plotly>=5.20
-shapely>=2.0
+# Versions pinned to the ones the app was tested with (Python 3.12)
+streamlit==1.67.0
+streamlit-folium==0.28.0
+folium==1.0.0
+geopandas==1.2.0
+pandas==3.0.6
+plotly==7.1.0
+shapely==2.2.0

@@ -1,13 +1,15 @@
-id,title,date_text,year,region,civilization,type,description,source,lat,lon
-1,Code of Hammurabi,c. 1754 BCE,-1754,Middle East,Babylonia,Document,"Diorite stele inscribed with about 280 laws in Akkadian. Discovered at Susa in 1901-02 and now held in the Louvre.",Louvre Museum,32.54,44.42
-2,Cyrus Cylinder,c. 539 BCE,-539,Middle East,Achaemenid Persia,Artifact,"Clay cylinder in Akkadian cuneiform recording Cyrus the Great's capture of Babylon and his policies toward its temples.",British Museum,32.54,44.42
-3,Rosetta Stone,196 BCE,-196,Africa,Hellenistic Egypt,Artifact,"Granodiorite stele bearing a decree in hieroglyphic, Demotic and Greek; found in 1799 and key to deciphering hieroglyphs.",British Museum,31.40,30.42
-4,Res Gestae Divi Augusti,c. 14 CE,14,Europe,Rome,Document,"Augustus's own account of his achievements; it also reports the census counts of Roman citizens.",Encyclopaedia Britannica,41.90,12.50
-5,Han Dynasty census record (Book of Han),2 CE,2,Asia,Han China,Document,"The Hanshu records households and registered persons from the census of 2 CE, the earliest surviving large-scale census data.",Encyclopaedia Britannica,34.27,108.95
-6,Tabula Peutingeriana,13th-century copy of a Roman original,1200,Europe,Rome,Map,"Medieval copy of a schematic Roman road map showing the road network; held by the Austrian National Library.",Austrian National Library,41.90,12.50
-7,Magna Carta,1215,1215,Europe,Medieval England,Document,"Charter of liberties agreed by King John at Runnymede in June 1215.",British Library,51.44,-0.56
-8,Travels of Marco Polo,c. 1298-1299,1298,Asia,Venetian Republic,Document,"Account of travels across Asia dictated in Genoese captivity and recorded by Rustichello da Pisa.",Encyclopaedia Britannica,45.44,12.32
-9,Catalan Atlas,1375,1375,Europe,Crown of Aragon,Map,"Medieval world map attributed to Cresques Abraham; held by the Bibliotheque nationale de France.",Bibliotheque nationale de France,39.57,2.65
-10,Waldseemuller map,1507,1507,Europe,Holy Roman Empire,Map,"World map that first used the name America; held by the Library of Congress.",Library of Congress,48.29,6.95
-11,Peace of Westphalia treaties,1648,1648,Europe,Holy Roman Empire,Document,"Treaties of Munster and Osnabruck that ended the Thirty Years' War.",Encyclopaedia Britannica,51.96,7.63
-12,Declaration of the Rights of Man and of the Citizen,26 August 1789,1789,Europe,France,Document,"Foundational text of the French Revolution adopted by the National Constituent Assembly.",Encyclopaedia Britannica,48.86,2.35
+id,title,date_text,year,region,civilization,type,description,source,lat,lon,url,date_certainty
+1,Code of Hammurabi,c. 1754 BCE,-1754,Middle East,Babylonia,Document,Diorite stele inscribed with about 280 laws in Akkadian. Discovered at Susa in 1901-02 and now held in the Louvre.,Louvre Museum,32.54,44.42,,approximate
+2,Cyrus Cylinder,c. 539 BCE,-539,Middle East,Achaemenid Persia,Artifact,Clay cylinder in Akkadian cuneiform recording Cyrus the Great's capture of Babylon and his policies toward its temples.,British Museum,32.54,44.42,,approximate
+3,Rosetta Stone,196 BCE,-196,Africa,Hellenistic Egypt,Artifact,"Granodiorite stele bearing a decree in hieroglyphic, Demotic and Greek; found in 1799 and key to deciphering hieroglyphs.",British Museum,31.4,30.42,,secure
+4,Res Gestae Divi Augusti,c. 14 CE,14,Europe,Rome,Document,Augustus's own account of his achievements; it also reports the census counts of Roman citizens.,Encyclopaedia Britannica,41.9,12.5,,approximate
+5,Han Dynasty census record (Book of Han),2 CE,2,Asia,Han China,Document,"The Hanshu records households and registered persons from the census of 2 CE, the earliest surviving large-scale census data.",Encyclopaedia Britannica,34.27,108.95,,secure
+6,Tabula Peutingeriana,13th-century copy of a Roman original,1200,Europe,Rome,Map,Medieval copy of a schematic Roman road map showing the road network; held by the Austrian National Library.,Austrian National Library,41.9,12.5,,approximate
+7,Magna Carta,1215,1215,Europe,Medieval England,Document,Charter of liberties agreed by King John at Runnymede in June 1215.,British Library,51.44,-0.56,,secure
+8,Travels of Marco Polo,c. 1298-1299,1298,Asia,Venetian Republic,Document,Account of travels across Asia dictated in Genoese captivity and recorded by Rustichello da Pisa.,Encyclopaedia Britannica,45.44,12.32,,approximate
+9,Catalan Atlas,1375,1375,Europe,Crown of Aragon,Map,Medieval world map attributed to Cresques Abraham; held by the Bibliotheque nationale de France.,Bibliotheque nationale de France,39.57,2.65,,secure
+10,Waldseemuller map,1507,1507,Europe,Holy Roman Empire,Map,World map that first used the name America; held by the Library of Congress.,Library of Congress,48.29,6.95,,secure
+11,Peace of Westphalia treaties,1648,1648,Europe,Holy Roman Empire,Document,Treaties of Munster and Osnabruck that ended the Thirty Years' War.,Encyclopaedia Britannica,51.96,7.63,,secure
+12,Declaration of the Rights of Man and of the Citizen,26 August 1789,1789,Europe,France,Document,Foundational text of the French Revolution adopted by the National Constituent Assembly.,Encyclopaedia Britannica,48.86,2.35,,secure
+13,Golden Bull of 1356,1356,1356,Europe,Holy Roman Empire,Document,"Decree of Charles IV fixing the procedure for electing the King of the Romans by seven prince-electors, the framework behind the elections of 1400 and 1410-11.",Encyclopaedia Britannica,49.45,11.08,,secure
+14,Four Articles of Prague,1420,1420,Europe,Kingdom of Bohemia,Document,"Programme of the Hussite movement, set out in 1420 as the basis of its demands during the Hussite Wars.",Encyclopaedia Britannica: Hussite,50.08,14.42,https://www.britannica.com/topic/Hussite,secure

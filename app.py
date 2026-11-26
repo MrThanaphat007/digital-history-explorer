@@ -4,9 +4,9 @@ Run with:  streamlit run app.py
 Sidebar state shared by all pages: dark mode, selected year, navigation.
 """
 import streamlit as st
-from db import init_db
+from db import init_db, problems
 from utils import apply_theme, fmt_year, YEAR_MIN, YEAR_MAX
-from views import dashboard, map_view, timeline, analysis, archive
+from views import dashboard, map_view, timeline, analysis, archive, about
 
 st.set_page_config(page_title="Digital History Explorer", page_icon="🏛️", layout="wide")
 init_db()  # build SQLite from CSVs on first run
@@ -17,6 +17,7 @@ PAGES = {  # to add a page: create views/<name>.py with render(year, dark) and r
     "Timeline": timeline,
     "Data Analysis": analysis,
     "Archive": archive,
+    "About & Methods": about,
 }
 
 st.session_state.setdefault("year", 100)
@@ -28,6 +29,8 @@ with st.sidebar:
     st.slider("Selected year (negative = BCE)", YEAR_MIN, YEAR_MAX, key="year", step=10)
     st.caption(f"Current: **{fmt_year(st.session_state['year'])}**")
     dark = st.toggle("Dark mode", value=False)
+    if problems():  # automatic CSV checks (details on the About & Methods page)
+        st.warning("Data check found problems. See About & Methods.")
     st.markdown("<span class='small-note'>Sample datasets with listed sources. Approximate or traditional "
                 "values are labelled; verify before academic citation.</span>", unsafe_allow_html=True)
 

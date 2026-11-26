@@ -11,11 +11,11 @@ import streamlit.components.v1 as components
 from streamlit_folium import st_folium
 from db import init_db, query
 from geo import polity_at
-from utils import base_map, fmt_year, year_ticks, style_fig, ERA_RANGES, YEAR_MIN, YEAR_MAX
+from utils import base_map, cert_badge, src_link, fmt_year, year_ticks, style_fig, ERA_RANGES, YEAR_MIN, YEAR_MAX
 
 # One colour per event category (used by the cinematic view and the overview chart)
-CAT_COLOURS = {"War": "#c0392b", "Politics": "#4a6fa5", "Law": "#3f8f6b", "Religion": "#8e5ea2",
-               "Exploration": "#d98324", "Disease": "#7f8c8d", "Trade": "#b08d57"}
+CAT_COLOURS = {"War": "#B5654A", "Politics": "#8A8F70", "Law": "#C2A66B", "Religion": "#9C7A8C",
+               "Exploration": "#D08C4F", "Disease": "#8C8C86", "Trade": "#B8A87A"}
 
 
 def _show_on_map(row):
@@ -33,25 +33,25 @@ def cinematic_html(events: list[dict]) -> str:
     return """
 <style>
   *{box-sizing:border-box} body{margin:0;font-family:'Inter',system-ui,sans-serif}
-  #wrap{position:relative;height:640px;background:radial-gradient(ellipse at top,#1b2230 0%,#0b0e14 70%);
-        color:#eee;border-radius:10px;overflow:hidden;border:1px solid #2b323b}
+  #wrap{position:relative;height:640px;background:radial-gradient(ellipse at top,#2a2d28 0%,#1d1f1c 70%);
+        color:#eee;border-radius:10px;overflow:hidden;border:1px solid #3a3d37}
   #hud{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;gap:14px;
-       padding:10px 16px;background:linear-gradient(#0b0e14ee,#0b0e1400)}
-  #year{font:700 2.4rem 'Libre Baskerville',Georgia,serif;color:#d4b06a;min-width:190px;
-        text-shadow:0 0 18px #d4b06a66}
-  button,select{background:#1d2229;color:#eee;border:1px solid #3a4350;border-radius:6px;padding:7px 14px;
-        font-size:.9rem;cursor:pointer} button:hover{border-color:#d4b06a}
-  #bar{position:absolute;top:0;left:0;height:3px;background:#d4b06a;width:0;z-index:6;transition:width .5s}
+       padding:10px 16px;background:linear-gradient(#1d1f1cee,#1d1f1c00)}
+  #year{font:700 2.4rem 'Libre Baskerville',Georgia,serif;color:#d68e73;min-width:190px;
+        text-shadow:0 0 18px #d68e7366}
+  button,select{background:#262823;color:#eee;border:1px solid #4a4d46;border-radius:6px;padding:7px 14px;
+        font-size:.9rem;cursor:pointer} button:hover{border-color:#d68e73}
+  #bar{position:absolute;top:0;left:0;height:3px;background:#d68e73;width:0;z-index:6;transition:width .5s}
   #stage{position:absolute;inset:0;overflow-y:auto;padding:90px 0 260px;scroll-behavior:smooth}
-  #line{position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(#0000,#d4b06a88,#0000)}
+  #line{position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(#0000,#d68e7388,#0000)}
   .item{position:relative;width:50%;padding:14px 38px;opacity:0;transform:translateY(34px);
         transition:opacity .7s,transform .7s}
   .item.show{opacity:.55;transform:none} .item.active{opacity:1}
   .item.left{left:0;text-align:right} .item.right{left:50%}
   .dot{position:absolute;top:30px;width:14px;height:14px;border-radius:50%;background:var(--c);
-       box-shadow:0 0 0 4px #0b0e14,0 0 14px var(--c)}
+       box-shadow:0 0 0 4px #1d1f1c,0 0 14px var(--c)}
   .left .dot{right:-7px} .right .dot{left:-7px}
-  .card{background:#141922;border:1px solid #2b323b;border-top:3px solid var(--c);border-radius:8px;
+  .card{background:#262823;border:1px solid #3a3d37;border-top:3px solid var(--c);border-radius:8px;
         padding:14px 18px;display:inline-block;max-width:100%;text-align:left;transition:box-shadow .4s}
   .active .card{box-shadow:0 0 28px -4px var(--c)}
   .yr{font:700 1.7rem 'Libre Baskerville',Georgia,serif;color:var(--c)}
@@ -191,8 +191,8 @@ def _render_cinematic(year: int, dark: bool):
     ev = df[df.title == title].iloc[0]
     left, right = st.columns([3, 2])
     with left:
-        st.markdown(f"<div class='card'><h3>{ev.title}</h3><div class='meta'>{fmt_year(ev.year)} - {ev.category}</div>"
-                    f"<p>{ev.description}</p><div class='meta'>Source: {ev.source}</div></div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='card'><h3>{ev.title}</h3><div class='meta'>{fmt_year(ev.year)}{cert_badge(ev.get('date_certainty'))} - {ev.category}</div>"
+                    f"<p>{ev.description}</p><div class='meta'>Source: {src_link(ev.source, ev.get('url'))}</div></div>", unsafe_allow_html=True)
         snap, polities = polity_at(ev.lat, ev.lon, int(ev.year))
         st.markdown(f"**GIS lookup:** in the {fmt_year(snap)} border snapshot (nearest to this event) the location "
                     f"falls within: **{', '.join(polities) if polities else 'no mapped polity'}**.")
@@ -219,10 +219,10 @@ def tree_html(root: dict, nodes: list[dict], linked: dict, dark: bool) -> str:
 TREE_TEMPLATE = """
 <style>
   *{box-sizing:border-box} body{margin:0;font-family:'Inter',system-ui,sans-serif}
-  #wrap{--bg1:#1b2230;--bg2:#0b0e14;--tx:#eee;--mut:#9aa3ad;--pn:#141922;--ln:#2b323b;--gold:#d4b06a;
+  #wrap{--bg1:#2a2d28;--bg2:#1d1f1c;--tx:#eee;--mut:#9aa3ad;--pn:#262823;--ln:#3a3d37;--gold:#d68e73;
         position:relative;height:680px;border-radius:10px;overflow:hidden;border:1px solid var(--ln);
         background:radial-gradient(ellipse at center,var(--bg1) 0%,var(--bg2) 75%);color:var(--tx)}
-  #wrap.light{--bg1:#fffdf8;--bg2:#efe6d3;--tx:#2a2420;--mut:#6d635a;--pn:#fffdf8;--ln:#d9ccb2;--gold:#7a1f2b}
+  #wrap.light{--bg1:#fffdf8;--bg2:#efe6d3;--tx:#2a2420;--mut:#6d635a;--pn:#fffdf8;--ln:#d9ccb2;--gold:#A6644D}
   svg{width:100%;height:100%;display:block;cursor:grab;touch-action:none} svg:active{cursor:grabbing}
   .link{fill:none;stroke-linecap:round} .node{cursor:pointer}
   .lbl{fill:var(--tx);font-size:12.5px;pointer-events:none} .yr{fill:var(--mut);font-size:11px;pointer-events:none}
@@ -264,7 +264,7 @@ const PALETTE = ['#d98324', '#4a90c2', '#3f8f6b', '#b565a7', '#c0392b', '#8aa13a
 const byId = {};
 D.nodes.forEach(n => byId[n.id] = Object.assign({children: []}, n));
 const root = {id: 'root', label: D.root.title, year: D.root.year, detail: D.root.description,
-              source: D.root.source, certainty: 'established', children: [], linked: null};
+              source: D.root.source, url: D.root.url, certainty: 'established', children: [], linked: null};
 Object.keys(byId).forEach(k => { const n = byId[k]; (n.parent && byId[n.parent] ? byId[n.parent] : root).children.push(n); });
 
 // ---- radial layout: each subtree gets an angle slice proportional to its leaf count
@@ -280,7 +280,7 @@ function layout(n, a0, a1, d, branch, parent) {
 }
 layout(root, -Math.PI / 2, 1.5 * Math.PI, 0, -1, null);
 const all = []; (function walk(n) { all.push(n); n.children.forEach(walk); })(root);
-const colour = n => n.branch < 0 ? D.dark ? '#d4b06a' : '#7a1f2b' : PALETTE[n.branch % PALETTE.length];
+const colour = n => n.branch < 0 ? D.dark ? '#d68e73' : '#A6644D' : PALETTE[n.branch % PALETTE.length];
 const pol = (a, r) => [r * Math.cos(a), r * Math.sin(a)];
 
 // ---- draw links (curved radial connectors), then nodes
@@ -310,7 +310,7 @@ all.forEach(n => {
     txt(lines, 0, -((lines.length - 1) * 7) - 2, 'middle', 'lbl');
     const y = el('text', {x: 0, y: lines.length * 7 + 14, 'text-anchor': 'middle', class: 'yr'}, g);
     y.textContent = fmt(n.year);
-    Array.from(g.childNodes).forEach(c => { if (c.tagName === 'text') c.style.fill = '#0b0e14'; });
+    Array.from(g.childNodes).forEach(c => { if (c.tagName === 'text') c.style.fill = '#1d1f1c'; });
   } else {
     const cosA = Math.cos(n.a), side = cosA < -0.25 ? 'end' : cosA > 0.25 ? 'start' : 'middle';
     const lines = wrap(n.label + (n.linked ? ' \u2197' : ''), 24);
@@ -332,7 +332,9 @@ function select(n) {
   document.getElementById('pd').textContent = n.detail || '';
   let src = 'Source: ' + (n.source || 'n/a');
   if (n.linked && D.linked[String(n.linked)]) { const l = D.linked[String(n.linked)]; src += ' \u00b7 Also in the dataset: ' + l.title + ' (' + fmt(l.year) + ')'; }
-  document.getElementById('ps').textContent = src;
+  const ps = document.getElementById('ps'); ps.textContent = src;
+  if (n.url && String(n.url).startsWith('https://')) { const a = document.createElement('a'); a.href = n.url; a.target = '_blank';
+    a.rel = 'noopener'; a.textContent = ' \u2197 open source'; a.style.color = 'var(--gold)'; ps.appendChild(a); }
   const path = new Set(); for (let c = n; c; c = c.up) path.add(c.id);
   svg.classList.add('focus');
   all.forEach(m => { m.el.classList.toggle('hl', path.has(m.id)); if (m.linkEl) m.linkEl.classList.toggle('hl', path.has(m.id)); });
@@ -431,13 +433,15 @@ def _render_tree(year: int, dark: bool):
         nodes = _drop_debated(nodes)
     recs = [{"id": r.id, "parent": "" if pd.isna(r.parent_id) else r.parent_id, "label": r.label,
              "year": None if pd.isna(r.year) else int(r.year), "detail": r.detail, "certainty": r.certainty,
-             "linked": None if pd.isna(r.linked_event_id) else int(r.linked_event_id), "source": r.source}
+             "linked": None if pd.isna(r.linked_event_id) else int(r.linked_event_id), "source": r.source,
+             "url": getattr(r, "url", None) if isinstance(getattr(r, "url", None), str) else ""}
             for r in nodes.itertuples()]
     linked = {str(int(r.id)): {"title": r.title, "year": int(r.year)}
               for r in ev[ev["id"].isin([x["linked"] for x in recs if x["linked"]])].itertuples()}
     root_ev = ev[ev["id"] == sel].iloc[0]
     root = {"title": root_ev.title, "year": int(root_ev.year), "description": root_ev.description,
-            "source": root_ev.source}
+            "source": root_ev.source,
+            "url": root_ev.get("url") if isinstance(root_ev.get("url"), str) else ""}
 
     page = ("<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>" + tree_html(root, recs, linked, dark)
             + "</body></html>")
@@ -449,7 +453,9 @@ def _render_tree(year: int, dark: bool):
     st.button("Show starting event on map", on_click=_show_on_map, args=(root_ev.to_dict(),), key="show_map_tree")
     with st.expander("All branches with sources"):
         tbl = nodes.assign(when=nodes["year"].map(lambda y: "" if pd.isna(y) else fmt_year(y)))
-        st.dataframe(tbl[["label", "when", "certainty", "detail", "source"]], hide_index=True, width="stretch")
+        show = [c for c in ["label", "when", "certainty", "detail", "source", "url"] if c in tbl]
+        st.dataframe(tbl[show], hide_index=True, width="stretch",
+                     column_config={"url": st.column_config.LinkColumn("link", display_text="open")} if "url" in show else None)
     st.caption("Cause-and-effect links are interpretations. 'Debated' marks links where historians disagree or the "
                "connection is indirect. Check each against its source before citing.")
 
