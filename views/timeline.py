@@ -396,7 +396,7 @@ all.forEach(n => {
     txt(lines, dx, dy, side, 'lbl');
     if (fmt(n.year)) { const y = el('text', {x: dx, y: dy + lines.length * 15, 'text-anchor': side, class: 'yr ' + cls}, g); y.textContent = fmt(n.year); if (s) { y.style.fill = s.accent; y.style.fontFamily = s.font; } }
   }
-  g.addEventListener('click', ev => { if (ev.stopPropagation) ev.stopPropagation(); if (moved) return;
+  g.addEventListener('click', ev => { if (ev.stopPropagation) ev.stopPropagation(); if (moved) return; cancelTour++; animTok++;
     if (FOREST && vb.w > n.tree.rect.w * 1.5) animVB(vbFor(n.tree.rect.x, n.tree.rect.y, n.tree.rect.x + n.tree.rect.w, n.tree.rect.y + n.tree.rect.h), 700, () => select(n));
     else select(n); });
   n.el = g;
@@ -452,7 +452,7 @@ function play() {
 }
 
 // ---- zoom / pan through the viewBox (labels of deeper rings hide when zoomed far out)
-let vb = {x: -500, y: -380, w: 1000, h: 760}, moved = false, animTok = 0;
+let vb = {x: -500, y: -380, w: 1000, h: 760}, moved = false, animTok = 0, cancelTour = 0;
 function lod() { const sc = (svg.clientWidth || 900) / vb.w;
   svg.classList.toggle('hide2', FOREST && sc < 0.62); svg.classList.toggle('hide1', FOREST && sc < 0.3); }
 function setVB() { svg.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.w} ${vb.h}`); lod(); }
@@ -471,8 +471,28 @@ function animVB(to, ms, done) {                                        // smooth
     vb = {x: from.x + (to.x - from.x) * e, y: from.y + (to.y - from.y) * e, w: from.w + (to.w - from.w) * e, h: from.h + (to.h - from.h) * e}; setVB();
     if (p < 1) requestAnimationFrame(stepA); else if (done) done(); })(t0);
 }
-function fit() { animTok++; vb = fitTarget(); setVB(); }
-function zoom(k, cx, cy) { animTok++; closePop(); const px = cx === undefined ? vb.x + vb.w / 2 : cx, py = cy === undefined ? vb.y + vb.h / 2 : cy;
+const aroundNode = (n, w) => { const ar = (svg.clientWidth || 900) / (svg.clientHeight || 700); return {x: n.x - w / 2, y: n.y - w / ar / 2, w, h: w / ar}; };
+// Camera tour (single trees): start on the first event, follow the path to the latest event, then zoom out to the whole tree
+function tour() {
+  if (FOREST) return;
+  const my = ++cancelTour; let end = null;
+  all.forEach(n => { if (typeof n.year === 'number' && (!end || n.year > end.year || (n.year === end.year && n.depth > end.depth))) end = n; });
+  if (!end) end = all.reduce((a, b) => b.ad > a.ad ? b : a, all[0]);
+  const path = []; for (let c = end; c; c = c.up) path.unshift(c);
+  const spine = trees[0].spine.length > 1, W = spine ? 1000 : 640, leg = (spine ? 550 : 800) + 250, chip = document.getElementById('intro');
+  const say = n => { chip.hidden = false; chip.style.opacity = 1; chip.textContent = n.label + (fmt(n.year) ? ' (' + fmt(n.year) + ')' : ''); };
+  animTok++; vb = aroundNode(path[0], W); setVB(); say(path[0]);
+  let i = 0;
+  (function next() {
+    if (my !== cancelTour) return;
+    i++;
+    if (i < path.length) { say(path[i]); animVB(aroundNode(path[i], W), leg, next); }
+    else setTimeout(() => { if (my !== cancelTour) return;
+      animVB(fitTarget(), 2200, () => { chip.style.opacity = 0; setTimeout(() => { chip.hidden = true; }, 900); }); }, 700);
+  })();
+}
+function fit() { animTok++; cancelTour++; vb = fitTarget(); setVB(); }
+function zoom(k, cx, cy) { animTok++; cancelTour++; closePop(); const px = cx === undefined ? vb.x + vb.w / 2 : cx, py = cy === undefined ? vb.y + vb.h / 2 : cy;
   vb = {x: px - (px - vb.x) * k, y: py - (py - vb.y) * k, w: vb.w * k, h: vb.h * k}; setVB(); }
 svg.addEventListener('wheel', e => { e.preventDefault(); const r = svg.getBoundingClientRect();
   zoom(e.deltaY > 0 ? 1.1 : 0.9, vb.x + (e.clientX - r.left) / r.width * vb.w, vb.y + (e.clientY - r.top) / r.height * vb.h); }, {passive: false});
@@ -480,14 +500,14 @@ let drag = null;
 svg.addEventListener('pointerdown', e => { drag = {x: e.clientX, y: e.clientY}; moved = false; });
 window.addEventListener('pointermove', e => { if (!drag) return;
   const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.abs(dx) + Math.abs(dy) > 4) moved = true;
-  if (moved) { animTok++; closePop(); vb.x -= dx * vb.w / svg.clientWidth; vb.y -= dy * vb.h / svg.clientHeight; drag = {x: e.clientX, y: e.clientY}; setVB(); } });
+  if (moved) { animTok++; cancelTour++; closePop(); vb.x -= dx * vb.w / svg.clientWidth; vb.y -= dy * vb.h / svg.clientHeight; drag = {x: e.clientX, y: e.clientY}; setVB(); } });
 window.addEventListener('pointerup', () => { drag = null; setTimeout(() => moved = false, 0); });
 document.getElementById('zin').onclick = () => zoom(0.8);
 document.getElementById('zout').onclick = () => zoom(1.25);
 document.getElementById('zfit').onclick = fit;
-document.getElementById('replay').onclick = play;
+document.getElementById('replay').onclick = () => { cancelTour++; play(); tour(); };
 window.addEventListener('resize', fit);
-fit(); play();
+fit(); play(); tour();
 // ---- forest intro: start zoomed in on one RANDOM event, then zoom out to reveal every tree
 if (FOREST) {
   const pick = trees[Math.floor(Math.random() * trees.length)], r = pick.rect, intro = document.getElementById('intro');
