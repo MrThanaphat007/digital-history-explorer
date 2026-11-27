@@ -218,6 +218,7 @@ def tree_html(trees: list[dict], linked: dict, dark: bool) -> str:
 
 TREE_TEMPLATE = """
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=DM+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=MedievalSharp&family=Noto+Sans+Thai:wght@400;600&family=Noto+Serif+Thai:wght@400;600&family=Pridi:wght@400;600&display=swap');
   *{box-sizing:border-box} body{margin:0;font-family:'DM Sans','Noto Sans Thai',system-ui,sans-serif}
   #wrap{--bg1:#2a2d28;--bg2:#1d1f1c;--tx:#eee;--mut:#9aa3ad;--pn:#262823;--ln:#3a3d37;--gold:#d68e73;
         --pb:#000;--pf:#f2f2f2;--pbd:#555;--dbt:#e0a040;
@@ -234,6 +235,8 @@ TREE_TEMPLATE = """
   button{background:var(--pn);color:var(--tx);border:1px solid var(--ln);border-radius:6px;padding:6px 12px;font:inherit;font-size:.85rem;cursor:pointer}
   button:hover{border-color:var(--gold)}
   #legend{font-size:.75rem;color:var(--mut);margin-left:auto;text-align:right}
+  #intro{position:absolute;z-index:4;left:50%;bottom:16px;transform:translateX(-50%);background:var(--pb);color:var(--pf);border:1px solid var(--pbd);
+         border-radius:20px;padding:6px 16px;font-size:.85rem;transition:opacity .8s;max-width:90%;text-align:center}
   #pop{position:absolute;z-index:6;width:min(320px,calc(100% - 24px));background:var(--pb);color:var(--pf);
        border:1px solid var(--pbd);border-radius:6px;padding:12px 16px 14px;font-size:.92rem;line-height:1.7;box-shadow:0 10px 30px #0008}
   #pop[hidden]{display:none}
@@ -251,90 +254,151 @@ TREE_TEMPLATE = """
     <button id="zout">&minus;</button><button id="zfit">ดูทั้งหมด</button>
     <div id="legend">คลิกที่จุดเพื่ออ่านคำอธิบาย<br>เส้นทึบ = ยอมรับทั่วไป &middot; เส้นประ = ยังถกเถียง &middot; &#8599; = เป็นเหตุการณ์ในระบบด้วย</div>
   </div>
-  <svg id="svg"><g id="links"></g><g id="nodes"></g></svg>
+  <svg id="svg"><g id="panels"></g><g id="links"></g><g id="nodes"></g></svg>
+  <div id="intro" hidden></div>
   <div id="pop" hidden><button id="px" aria-label="ปิด">&times;</button><div class="t" id="pt1"></div>
     <div class="m" id="pm"></div><div id="pth"></div><div class="s" id="ps"></div></div>
 </div>
 <script>
 const D = __DATA__, NS = 'http://www.w3.org/2000/svg';
 document.getElementById('wrap').classList.toggle('light', !D.dark);
-const svg = document.getElementById('svg'), gL = document.getElementById('links'), gN = document.getElementById('nodes');
-const FOREST = D.trees.length > 1, K = FOREST ? 0.62 : 1;
+const svg = document.getElementById('svg'), gP = document.getElementById('panels'), gL = document.getElementById('links'), gN = document.getElementById('nodes');
+const FOREST = D.trees.length > 1, K = FOREST ? 0.62 : 1, BH = FOREST ? 136 : 0;   // BH = banner height above each tree in the forest
 const fmt = y => (y === null || y === undefined || y === '') ? '' : (y < 0 ? Math.abs(y) + ' BCE' : y + ' CE');
 const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag);
   for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
 const PALETTE = ['#d98324', '#4a90c2', '#3f8f6b', '#b565a7', '#c0392b', '#8aa13a', '#5b7f95'];
 const RADII = [0, 150, 270, 370, 460, 540].map(r => r * K);
+const SPX = RADII[3] + 200;                                        // distance between big events on a long (spine) tree
 const SEG = (typeof Intl !== 'undefined' && Intl.Segmenter) ? new Intl.Segmenter('th', {granularity: 'word'}) : null;
 
-// ---- build each tree from flat rows (parent id -> children)
-function build(t) {
-  const byId = {}; t.nodes.forEach(n => byId[n.id] = Object.assign({children: []}, n));
-  const root = {id: 'root_' + t.root.id, label: t.root.title, year: t.root.year, detail: t.root.description,
-                th: t.root.th, source: t.root.source, url: t.root.url, certainty: 'established', children: [], linked: null};
-  Object.keys(byId).forEach(k => { const n = byId[k]; (n.parent && byId[n.parent] ? byId[n.parent] : root).children.push(n); });
-  return root;
-}
-// ---- radial layout: each subtree gets an angle slice proportional to its leaf count
-const leaves = n => n.children.length ? n.children.reduce((s, c) => s + leaves(c), 0) : 1;
-function layout(n, a0, a1, d, branch, parent, ox, oy) {
-  n.depth = d; n.up = parent; n.a = (a0 + a1) / 2; n.branch = branch; n.ox = ox; n.oy = oy;
-  n.r = RADII[Math.min(d, RADII.length - 1)];
-  n.x = ox + n.r * Math.cos(n.a); n.y = oy + n.r * Math.sin(n.a);
-  let a = a0; const L = leaves(n);
-  n.children.forEach((c, i) => { const span = (a1 - a0) * leaves(c) / L; layout(c, a, a + span, d + 1, d === 0 ? i : branch, n, ox, oy); a += span; });
-}
-const roots = D.trees.map(build);
-const COLS = FOREST ? Math.ceil(Math.sqrt(roots.length * 1.3)) : 1;
-const CW = 2 * 540 * K + 460, CH = 2 * 540 * K + 200;
-roots.forEach((r, i) => layout(r, -Math.PI / 2, 1.5 * Math.PI, 0, -1, null, (i % COLS) * CW, Math.floor(i / COLS) * CH));
-const all = []; roots.forEach(r => (function walk(n) { all.push(n); n.children.forEach(walk); })(r));
-const colour = n => n.branch < 0 ? (D.dark ? '#d68e73' : '#A6644D') : PALETTE[n.branch % PALETTE.length];
-const pol = (n, a, r) => [n.ox + r * Math.cos(a), n.oy + r * Math.sin(a)];
+// ---- era styles, used in the forest so each tree looks like its own period
+function eraStyle(era) { const d = D.dark; const S = {
+  ancient:  {bg: d ? '#3b3426' : '#eadfc6', edge: d ? '#b89455' : '#8b6b3a', ink: d ? '#efe4c8' : '#3a2e1c', link: d ? '#d39a62' : '#a6644d', fill: '#c9a15c', accent: d ? '#d39a62' : '#a6644d', font: "'Cinzel','Noto Serif Thai',serif", lw: 6, shape: 'ring'},
+  medieval: {bg: d ? '#3a2f22' : '#e9d9b0', edge: d ? '#c0504a' : '#7a1f1f', ink: d ? '#f0e2bd' : '#2c2416', link: d ? '#8fa0e0' : '#2f3d73', fill: '#c8a13a', accent: d ? '#c0504a' : '#7a1f1f', font: "'MedievalSharp','Pridi','Noto Serif Thai',serif", lw: 5, shape: 'diamond'},
+  early:    {bg: d ? '#34302a' : '#efe5cf', edge: d ? '#bba98c' : '#4a3b2a', ink: d ? '#efe6d3' : '#33291d', link: d ? '#bba98c' : '#4a3b2a', fill: d ? '#46403a' : '#f6efdc', accent: d ? '#d0a27a' : '#8a5a3a', font: "'Libre Baskerville','Noto Serif Thai',serif", lw: 2.2, shape: 'engraved'},
+  modern:   {bg: d ? '#262823' : '#f3f1ec', edge: d ? '#ece8dd' : '#252724', ink: d ? '#ece8dd' : '#252724', link: d ? '#ece8dd' : '#252724', fill: d ? '#d68e73' : '#A6644D', accent: d ? '#d68e73' : '#A6644D', font: "'DM Sans','Noto Sans Thai',sans-serif", lw: 2.4, shape: 'square', straight: true}};
+  return S[era] || S.modern; }
 
-// ---- links (curved radial connectors)
-const linkEls = [];
-all.filter(n => n.up).forEach(n => {
-  const p = n.up, rm = (p.r + n.r) / 2;
-  const [x0, y0] = pol(n, p.a, p.r), [x1, y1] = pol(n, p.a, rm), [x2, y2] = pol(n, n.a, rm), [x3, y3] = pol(n, n.a, n.r);
-  const path = el('path', {d: `M${x0},${y0} C${x1},${y1} ${x2},${y2} ${x3},${y3}`, class: 'link',
-    stroke: colour(n), 'stroke-width': Math.max(2, 6 - n.depth * 1.3), 'stroke-opacity': .85}, gL);
-  path.dataset.depth = n.depth; path.dataset.debated = n.certainty === 'debated' ? 1 : 0; n.linkEl = path; linkEls.push(path);
+// ---- build each tree from flat rows. Big events (flag "big") form a long spine; other nodes branch from them
+function build(t, idx) {
+  const byId = {}; t.nodes.forEach(n => byId[n.id] = Object.assign({children: [], bigKids: []}, n));
+  const root = {id: 'root_' + t.root.id, label: t.root.title, year: t.root.year, detail: t.root.description, th: t.root.th, source: t.root.source,
+                url: t.root.url, certainty: 'established', children: [], bigKids: [], linked: null, big: 1, isRoot: true};
+  Object.keys(byId).forEach(k => { const n = byId[k]; const p = (n.parent && byId[n.parent]) ? byId[n.parent] : root; (n.big ? p.bigKids : p.children).push(n); });
+  const spine = [root]; for (let c = root; c.bigKids.length;) { c = c.bigKids[0]; spine.push(c); }
+  return {root, spine, idx, era: t.root.era, sty: FOREST ? eraStyle(t.root.era) : null};
+}
+const leaves = n => n.children.length ? n.children.reduce((s, c) => s + leaves(c), 0) : 1;
+// radial fan: node n sits at distance RADII[d] from the fan origin (cx,cy); children share the angle range by leaf count
+function fan(n, a0, a1, d, branch, parent, cx, cy, ad0, bo, tree) {
+  n.depth = d; n.up = parent; n.a = (a0 + a1) / 2; n.branch = branch; n.cx = cx; n.cy = cy; n.tree = tree; n.ad = ad0 + d;
+  n.r = RADII[Math.min(d, RADII.length - 1)]; n.lx = cx + n.r * Math.cos(n.a); n.ly = cy + n.r * Math.sin(n.a);
+  let a = a0; const L = leaves(n);
+  n.children.forEach((c, i) => { const span = (a1 - a0) * leaves(c) / L; fan(c, a, a + span, d + 1, d === 0 ? bo + i : branch, n, cx, cy, ad0, bo, tree); a += span; });
+}
+const trees = D.trees.map(build);
+trees.forEach(t => {
+  if (t.spine.length > 1) t.spine.forEach((s, i) => {                  // long tree: big events in a row, fans alternate up / down
+    const up = i % 2 === 0, a0 = up ? -Math.PI + 0.35 : 0.35, a1 = up ? -0.35 : Math.PI - 0.35;
+    fan(s, a0, a1, 0, -1, i ? t.spine[i - 1] : null, i * SPX, 0, i, i * 2, t);
+    s.spineIdx = i; });
+  else fan(t.root, -Math.PI / 2, 1.5 * Math.PI, 0, -1, null, 0, 0, 0, 0, t);
+  t.nodes = []; (function walk(n) { t.nodes.push(n); n.children.forEach(walk); n.bigKids.forEach(walk); })(t.root);
+  let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;                          // local bounding box (labels reach ~190px sideways)
+  t.nodes.forEach(n => { const big = n.big, left = !big && Math.cos(n.a) < -0.25, right = !big && Math.cos(n.a) > 0.25, rr = big ? 85 : 0;
+    x0 = Math.min(x0, n.lx - (left ? 200 : 60) - rr); x1 = Math.max(x1, n.lx + (right ? 200 : 60) + rr);
+    y0 = Math.min(y0, n.ly - 50 - rr); y1 = Math.max(y1, n.ly + 70 + rr); });
+  t.bb = {x0: x0 - 30, x1: x1 + 30, y0: y0 - BH, y1: y1 + 30};
 });
-// word wrap (Thai has no spaces, so use the browser's word segmenter when available)
+// ---- pack trees chronologically into rows, close together (shelf packing)
+const GAP = 40, MAXW = 4300; let curX = 0, rowY = 0, rowH = 0;
+trees.forEach(t => {
+  const w = t.bb.x1 - t.bb.x0, h = t.bb.y1 - t.bb.y0;
+  if (FOREST && curX > 0 && curX + w > MAXW) { curX = 0; rowY += rowH + GAP; rowH = 0; }
+  const dx = FOREST ? curX - t.bb.x0 : 0, dy = FOREST ? rowY - t.bb.y0 : 0;
+  t.nodes.forEach(n => { n.x = n.lx + dx; n.y = n.ly + dy; n.cx += dx; n.cy += dy; });
+  t.rect = {x: t.bb.x0 + dx, y: t.bb.y0 + dy, w, h};
+  curX += w + GAP; rowH = Math.max(rowH, h);
+});
+const all = []; trees.forEach(t => t.nodes.forEach(n => all.push(n)));
+const colour = n => n.tree.sty ? n.tree.sty.fill : (n.branch < 0 ? (D.dark ? '#d68e73' : '#A6644D') : PALETTE[n.branch % PALETTE.length]);
+const pol = (n, a, r) => [n.cx + r * Math.cos(a), n.cy + r * Math.sin(a)];
+
+// ---- word wrap (Thai has no spaces, so use the browser's word segmenter when available)
 function wrap(text, max) {
   const toks = SEG ? Array.from(SEG.segment(text), s => s.segment) : text.split(/(?<= )/);
   const lines = []; let cur = '';
   toks.forEach(w => { if ((cur + w).trim().length > max && cur.trim()) { lines.push(cur.trim()); cur = w; } else cur += w; });
   if (cur.trim()) lines.push(cur.trim()); return lines.slice(0, 3);
 }
+// ---- era panels with banner (forest only)
+function drawPanel(t) {
+  const s = t.sty, r = t.rect, era = t.era, g = el('g', {}, gP);
+  const box = (x, y, w, h, rx, fill, stroke, sw, dash) => { const e = el('rect', {x, y, width: w, height: h, rx: rx || 0, fill: fill || 'none', stroke: stroke || 'none', 'stroke-width': sw || 1}, g);
+    if (dash) e.setAttribute('stroke-dasharray', dash); return e; };
+  box(r.x, r.y, r.w, r.h, era === 'medieval' ? 18 : era === 'modern' ? 0 : 4, s.bg, s.edge, era === 'early' ? 1.2 : 3.5);
+  if (era === 'ancient') box(r.x + 12, r.y + 12, r.w - 24, r.h - 24, 2, 'none', s.edge, 1.5, '16 5 3 5');
+  if (era === 'medieval') { box(r.x + 10, r.y + 10, r.w - 20, r.h - 20, 12, 'none', s.edge, 1.5);
+    [[r.x + 10, r.y + 10], [r.x + r.w - 10, r.y + 10], [r.x + 10, r.y + r.h - 10], [r.x + r.w - 10, r.y + r.h - 10]].forEach(p => el('circle', {cx: p[0], cy: p[1], r: 8, fill: s.fill, stroke: s.edge, 'stroke-width': 2}, g)); }
+  if (era === 'early') box(r.x + 8, r.y + 8, r.w - 16, r.h - 16, 2, 'none', s.edge, .8);
+  if (era === 'modern') box(r.x, r.y, 80, 10, 0, s.accent);
+  const left = era === 'modern', ax = left ? r.x + 30 : r.x + r.w / 2, anchor = left ? 'start' : 'middle';
+  const lines = wrap(t.root.label, 20);
+  lines.forEach((ln, i) => { const e = el('text', {x: ax, y: r.y + 52 + i * 44, 'text-anchor': anchor, fill: s.ink, class: 'cap'}, g);
+    e.style.fontFamily = s.font; e.style.fontSize = '38px'; e.style.fontWeight = era === 'modern' ? '700' : '400'; e.textContent = ln; });
+  const ye = el('text', {x: ax, y: r.y + 52 + lines.length * 44 - 8, 'text-anchor': anchor, fill: s.accent, class: 'cap'}, g);
+  ye.style.fontFamily = era === 'modern' ? "'IBM Plex Mono',monospace" : s.font; ye.style.fontSize = '22px'; ye.textContent = fmt(t.root.year);
+  if (era !== 'modern') el('line', {x1: r.x + 50, x2: r.x + r.w - 50, y1: r.y + BH - 12, y2: r.y + BH - 12, stroke: s.edge, 'stroke-width': 1}, g);
+}
+if (FOREST) trees.forEach(drawPanel);
+
+// ---- links
+const linkEls = [];
+all.filter(n => n.up).forEach(n => {
+  const s = n.tree.sty, p = n.up; let d, w;
+  if (n.big) { const x0 = p.x, y0 = p.y, x3 = n.x, y3 = n.y, mx = (x0 + x3) / 2;       // spine link between two big events
+    d = `M${x0},${y0} C${mx},${y0} ${mx},${y3} ${x3},${y3}`; w = s ? s.lw + 2 : 9; }
+  else { const rm = (p.r + n.r) / 2, [a0, b0] = pol(n, p.a, p.r), [a1, b1] = pol(n, p.a, rm), [a2, b2] = pol(n, n.a, rm), [a3, b3] = pol(n, n.a, n.r);
+    d = s && s.straight ? `M${a0},${b0} L${a3},${b3}` : `M${a0},${b0} C${a1},${b1} ${a2},${b2} ${a3},${b3}`;
+    w = s ? Math.max(1.4, s.lw - n.depth * (s.lw > 4 ? 1.1 : .3)) : Math.max(2, 6 - n.depth * 1.3); }
+  const path = el('path', {d, class: 'link', stroke: s ? s.link : colour(n), 'stroke-width': w, 'stroke-opacity': .85}, gL);
+  path.dataset.depth = n.ad; path.dataset.debated = n.certainty === 'debated' ? 1 : 0; n.linkEl = path; linkEls.push(path);
+});
 // ---- nodes
 all.forEach(n => {
-  const g = el('g', {class: 'node', transform: `translate(${n.x},${n.y})`}, gN);
-  const rad = n.depth === 0 ? (FOREST ? 64 : 50) : 11, fs = n.depth === 0 && FOREST ? 17 : 12.5;
-  if (n.certainty === 'debated') el('circle', {r: rad + 6, fill: 'none', stroke: '#e0a040', 'stroke-dasharray': '4 3', 'stroke-width': 1.5}, g);
-  el('circle', {r: rad + 9, fill: 'transparent'}, g);              // larger invisible click target
-  el('circle', {r: rad, fill: colour(n), class: 'main'}, g);
+  const s = n.tree.sty, g = el('g', {class: 'node', transform: `translate(${n.x},${n.y})`}, gN);
+  const big = !!n.big, rad = big ? (FOREST ? 56 : 50) : 11, fs = big && FOREST ? 15 : 12.5;
+  if (n.certainty === 'debated') el('circle', {r: rad + 6, fill: 'none', stroke: s ? s.accent : '#e0a040', 'stroke-dasharray': '4 3', 'stroke-width': 1.5}, g);
+  el('circle', {r: rad + 9, fill: 'transparent'}, g);                  // larger invisible click target
+  const fill = colour(n), edge = s ? s.edge : null;
+  if (big || !s) el('circle', {r: rad, fill, class: 'main'}, g);
+  else if (s.shape === 'diamond') el('rect', {x: -9, y: -9, width: 18, height: 18, transform: 'rotate(45)', fill, stroke: edge, 'stroke-width': 2.2}, g);
+  else if (s.shape === 'square') el('rect', {x: -9, y: -9, width: 18, height: 18, fill, stroke: edge, 'stroke-width': 1.6}, g);
+  else if (s.shape === 'engraved') { el('circle', {r: 10, fill, stroke: edge, 'stroke-width': 2}, g); el('circle', {r: 3.2, fill: edge}, g); }
+  else { el('circle', {r: 15, fill: 'none', stroke: edge, 'stroke-width': 1.6}, g); el('circle', {r: 10, fill, stroke: edge, 'stroke-width': 2}, g); }
+  if (big && s) g.firstChild && Array.from(g.childNodes).forEach(c => { if (c.getAttribute && c.getAttribute('class') === 'main') { c.setAttribute('stroke', edge); c.setAttribute('stroke-width', 4); } });
   el('title', {}, g).textContent = n.label + (fmt(n.year) ? ' (' + fmt(n.year) + ')' : '');
-  const cls = 'dd' + n.depth;
-  const txt = (lines, x, y0, anchor, c, size) => lines.forEach((ln, i) => { const t = el('text', {x, y: y0 + i * (size ? size + 2.5 : 15), 'text-anchor': anchor, class: c + ' ' + cls}, g);
-    if (size) t.style.fontSize = size + 'px'; t.textContent = ln; });
-  if (n.depth === 0) {
-    const lines = wrap(n.label, FOREST ? 11 : 14); const lh = fs + 2.5;
+  const cls = 'dd' + n.depth, ink = s ? s.ink : null, ff = s ? s.font : null;
+  const style = (t, size) => { if (size) t.style.fontSize = size + 'px'; if (ff) t.style.fontFamily = ff; if (ink) t.style.fill = ink; };
+  const txt = (lines, x, y0, anchor, c, size) => lines.forEach((ln, i) => { const t = el('text', {x, y: y0 + i * ((size || 12.5) + 2.5), 'text-anchor': anchor, class: c + ' ' + cls}, g); style(t, size); t.textContent = ln; });
+  if (big) {
+    const dark = s ? (s.shape !== 'x') : true, lines = wrap(n.label, FOREST ? 10 : 14), lh = fs + 2.5;
     txt(lines, 0, -((lines.length - 1) * lh) / 2 - 2, 'middle', 'lbl', fs);
     const y = el('text', {x: 0, y: (lines.length * lh) / 2 + 12, 'text-anchor': 'middle', class: 'yr ' + cls}, g); y.textContent = fmt(n.year);
+    if (ff) y.style.fontFamily = ff;
     Array.from(g.childNodes).forEach(c => { if (c.tagName === 'text') c.style.fill = '#1d1f1c'; });
   } else {
     const cosA = Math.cos(n.a), side = cosA < -0.25 ? 'end' : cosA > 0.25 ? 'start' : 'middle';
     const lines = wrap(n.label + (n.linked ? ' \u2197' : ''), 22);
-    const dx = side === 'end' ? -(rad + 8) : side === 'start' ? rad + 8 : 0;
-    const dy = side === 'middle' ? (Math.sin(n.a) > 0 ? rad + 16 : -(rad + 8) - lines.length * 15 + 15) : -4;
+    const dx = side === 'end' ? -(rad + 10) : side === 'start' ? rad + 10 : 0;
+    const dy = side === 'middle' ? (Math.sin(n.a) > 0 ? rad + 18 : -(rad + 8) - lines.length * 15 + 15) : -4;
     txt(lines, dx, dy, side, 'lbl');
-    if (fmt(n.year)) { const y = el('text', {x: dx, y: dy + lines.length * 15, 'text-anchor': side, class: 'yr ' + cls}, g); y.textContent = fmt(n.year); }
+    if (fmt(n.year)) { const y = el('text', {x: dx, y: dy + lines.length * 15, 'text-anchor': side, class: 'yr ' + cls}, g); y.textContent = fmt(n.year); if (s) { y.style.fill = s.accent; y.style.fontFamily = s.font; } }
   }
   g.addEventListener('click', ev => { if (ev.stopPropagation) ev.stopPropagation(); if (moved) return;
-    if (FOREST && n.depth === 0 && vb.w > 2200) focusTree(n);       // first click on a tree zooms to it
-    select(n); });
+    if (FOREST && vb.w > n.tree.rect.w * 1.5) animVB(vbFor(n.tree.rect.x, n.tree.rect.y, n.tree.rect.x + n.tree.rect.w, n.tree.rect.y + n.tree.rect.h), 700, () => select(n));
+    else select(n); });
   n.el = g;
 });
 
@@ -353,12 +417,12 @@ function placePop(n) {
 }
 function select(n) {
   document.getElementById('pt1').textContent = n.label;
-  const pm = document.getElementById('pm'); pm.textContent = (fmt(n.year) || 'ไม่ระบุปีที่แน่ชัด') + (n.depth ? '' : ' \u00b7 เหตุการณ์เริ่มต้น');
-  if (n.depth) { const b = document.createElement('span'); b.className = 'badge' + (n.certainty === 'debated' ? ' debated' : '');
-                 b.textContent = n.certainty === 'debated' ? 'ยังเป็นข้อถกเถียง' : 'ยอมรับกันทั่วไป'; pm.appendChild(b); }
+  const pm = document.getElementById('pm'); pm.textContent = (fmt(n.year) || 'ไม่ระบุปีที่แน่ชัด') + (n.isRoot ? ' \u00b7 เหตุการณ์เริ่มต้น' : n.big ? ' \u00b7 เหตุการณ์สำคัญบนเส้นหลัก' : '');
+  if (!n.big) { const b = document.createElement('span'); b.className = 'badge' + (n.certainty === 'debated' ? ' debated' : '');
+                b.textContent = n.certainty === 'debated' ? 'ยังเป็นข้อถกเถียง' : 'ยอมรับกันทั่วไป'; pm.appendChild(b); }
   document.getElementById('pth').textContent = n.th || n.detail || '';
   const ps = document.getElementById('ps'); ps.textContent = 'แหล่งที่มา: ' + (n.source || '-');
-  if (n.linked && D.linked[String(n.linked)]) { const l = D.linked[String(n.linked)]; ps.textContent += ' \u00b7 ตรงกับเหตุการณ์ในระบบ: ' + l.title + ' (' + fmt(l.year) + ')'; }
+  if (n.linked && D.linked[String(n.linked)] && !n.big) { const l = D.linked[String(n.linked)]; ps.textContent += ' \u00b7 ตรงกับเหตุการณ์ในระบบ: ' + l.title + ' (' + fmt(l.year) + ')'; }
   if (n.url && String(n.url).startsWith('https://')) { const a = document.createElement('a'); a.href = n.url; a.target = '_blank';
     a.rel = 'noopener'; a.textContent = ' \u2197 เปิดแหล่งที่มา'; ps.appendChild(a); }
   const path = new Set(); for (let c = n; c; c = c.up) path.add(c.id);
@@ -376,34 +440,39 @@ function play() {
   timers.forEach(clearTimeout); timers = [];
   linkEls.forEach(l => { const len = l.getTotalLength(); l.dataset.len = len; l.style.transition = 'none';
                          l.style.strokeDasharray = len; l.style.strokeDashoffset = len; });
-  all.forEach(n => { n.el.style.transition = 'none'; n.el.style.opacity = n.depth === 0 ? 1 : 0; });
+  all.forEach(n => { n.el.style.transition = 'none'; n.el.style.opacity = n.ad === 0 ? 1 : 0; });
   void svg.getBoundingClientRect();
-  const maxD = Math.max(...all.map(n => n.depth));
+  const maxD = Math.max(...all.map(n => n.ad)), step = maxD > 6 ? 550 : 800;
   for (let d = 1; d <= maxD; d++) timers.push(setTimeout(() => {
     linkEls.filter(l => +l.dataset.depth === d).forEach(l => { l.style.transition = 'stroke-dashoffset .8s ease'; l.style.strokeDashoffset = 0; });
-    all.forEach(n => { if (n.depth === d) { n.el.style.transition = 'opacity .6s ease .5s'; n.el.style.opacity = 1; } });
+    all.forEach(n => { if (n.ad === d) { n.el.style.transition = 'opacity .6s ease .5s'; n.el.style.opacity = 1; } });
     timers.push(setTimeout(() => linkEls.filter(l => +l.dataset.depth === d).forEach(l => {
       l.style.strokeDasharray = +l.dataset.debated ? '7 6' : 'none'; }), 900));
-  }, (d - 1) * 800));
+  }, (d - 1) * step));
 }
 
 // ---- zoom / pan through the viewBox (labels of deeper rings hide when zoomed far out)
-let vb = {x: -500, y: -380, w: 1000, h: 760}, moved = false;
+let vb = {x: -500, y: -380, w: 1000, h: 760}, moved = false, animTok = 0;
 function lod() { const sc = (svg.clientWidth || 900) / vb.w;
-  svg.classList.toggle('hide2', FOREST && sc < 0.62); svg.classList.toggle('hide1', FOREST && sc < 0.38); }
+  svg.classList.toggle('hide2', FOREST && sc < 0.62); svg.classList.toggle('hide1', FOREST && sc < 0.3); }
 function setVB() { svg.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.w} ${vb.h}`); lod(); }
-function box(list) {
-  let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
-  list.forEach(n => { const left = n.depth && Math.cos(n.a) < -0.25, right = n.depth && Math.cos(n.a) > 0.25, rr = n.depth ? 0 : 80;
-    x0 = Math.min(x0, n.x - (left ? 190 : 60) - rr); x1 = Math.max(x1, n.x + (right ? 190 : 60) + rr);
-    y0 = Math.min(y0, n.y - 50 - rr); y1 = Math.max(y1, n.y + 70 + rr); });
-  const ar = (svg.clientWidth || 900) / (svg.clientHeight || 700);
-  let w = x1 - x0, h = y1 - y0; if (w / h < ar) w = h * ar; else h = w / ar;
-  vb = {x: (x0 + x1) / 2 - w / 2, y: (y0 + y1) / 2 - h / 2, w, h}; setVB();
+function vbFor(x0, y0, x1, y1) {
+  const ar = (svg.clientWidth || 900) / (svg.clientHeight || 700); let w = x1 - x0, h = y1 - y0;
+  if (w / h < ar) w = h * ar; else h = w / ar;
+  return {x: (x0 + x1) / 2 - w / 2, y: (y0 + y1) / 2 - h / 2, w, h};
 }
-const fit = () => box(all);
-function focusTree(rootNode) { box(all.filter(n => n.ox === rootNode.ox && n.oy === rootNode.oy)); }
-function zoom(k, cx, cy) { closePop(); const px = cx === undefined ? vb.x + vb.w / 2 : cx, py = cy === undefined ? vb.y + vb.h / 2 : cy;
+const fitTarget = () => { let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+  trees.forEach(t => { x0 = Math.min(x0, t.rect.x); y0 = Math.min(y0, t.rect.y); x1 = Math.max(x1, t.rect.x + t.rect.w); y1 = Math.max(y1, t.rect.y + t.rect.h); });
+  return vbFor(x0, y0, x1, y1); };
+function animVB(to, ms, done) {                                        // smooth zoom (ease in-out); any user action cancels it
+  const tok = ++animTok, from = Object.assign({}, vb), t0 = performance.now();
+  closePop();
+  (function stepA(now) { if (tok !== animTok) return; const p = Math.min(1, (now - t0) / ms), e = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+    vb = {x: from.x + (to.x - from.x) * e, y: from.y + (to.y - from.y) * e, w: from.w + (to.w - from.w) * e, h: from.h + (to.h - from.h) * e}; setVB();
+    if (p < 1) requestAnimationFrame(stepA); else if (done) done(); })(t0);
+}
+function fit() { animTok++; vb = fitTarget(); setVB(); }
+function zoom(k, cx, cy) { animTok++; closePop(); const px = cx === undefined ? vb.x + vb.w / 2 : cx, py = cy === undefined ? vb.y + vb.h / 2 : cy;
   vb = {x: px - (px - vb.x) * k, y: py - (py - vb.y) * k, w: vb.w * k, h: vb.h * k}; setVB(); }
 svg.addEventListener('wheel', e => { e.preventDefault(); const r = svg.getBoundingClientRect();
   zoom(e.deltaY > 0 ? 1.1 : 0.9, vb.x + (e.clientX - r.left) / r.width * vb.w, vb.y + (e.clientY - r.top) / r.height * vb.h); }, {passive: false});
@@ -411,7 +480,7 @@ let drag = null;
 svg.addEventListener('pointerdown', e => { drag = {x: e.clientX, y: e.clientY}; moved = false; });
 window.addEventListener('pointermove', e => { if (!drag) return;
   const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.abs(dx) + Math.abs(dy) > 4) moved = true;
-  if (moved) { closePop(); vb.x -= dx * vb.w / svg.clientWidth; vb.y -= dy * vb.h / svg.clientHeight; drag = {x: e.clientX, y: e.clientY}; setVB(); } });
+  if (moved) { animTok++; closePop(); vb.x -= dx * vb.w / svg.clientWidth; vb.y -= dy * vb.h / svg.clientHeight; drag = {x: e.clientX, y: e.clientY}; setVB(); } });
 window.addEventListener('pointerup', () => { drag = null; setTimeout(() => moved = false, 0); });
 document.getElementById('zin').onclick = () => zoom(0.8);
 document.getElementById('zout').onclick = () => zoom(1.25);
@@ -419,6 +488,13 @@ document.getElementById('zfit').onclick = fit;
 document.getElementById('replay').onclick = play;
 window.addEventListener('resize', fit);
 fit(); play();
+// ---- forest intro: start zoomed in on one RANDOM event, then zoom out to reveal every tree
+if (FOREST) {
+  const pick = trees[Math.floor(Math.random() * trees.length)], r = pick.rect, intro = document.getElementById('intro');
+  animTok++; vb = vbFor(r.x, r.y, r.x + r.w, r.y + r.h); setVB();
+  intro.textContent = 'สุ่มเริ่มที่: ' + pick.root.label + ' (' + fmt(pick.root.year) + ')'; intro.hidden = false;
+  setTimeout(() => animVB(fitTarget(), 2600, () => { intro.style.opacity = 0; setTimeout(() => { intro.hidden = true; }, 900); }), 1300);
+}
 </script>
 """
 
@@ -448,9 +524,19 @@ def _drop_debated(df: pd.DataFrame) -> pd.DataFrame:
     return df[~df["id"].isin(drop)]
 
 
+def era_key(y: int) -> str:
+    """Period used to style a tree in the forest view."""
+    return "ancient" if y < 500 else "medieval" if y < 1500 else "early" if y < 1800 else "modern"
+
+
 def _txt(v) -> str:
     """Text value from a DataFrame cell ('' when empty)."""
     return v if isinstance(v, str) else ""
+
+
+def tree_title(row) -> str:
+    """Title of a tree: tree_title_th (for merged trees), else the Thai/English event title."""
+    return _txt(row.get("tree_title_th")) or _th_or_en(row, "title_th", "title")
 
 
 def _th_or_en(row, th_col: str, en_col: str) -> str:
@@ -475,9 +561,9 @@ def _tree_payload(ev: pd.DataFrame, imp: pd.DataFrame, root_ids, show_debated: b
                          "year": None if pd.isna(r.get("year")) else int(r["year"]),
                          "detail": _txt(r.get("detail")), "th": _txt(r.get("detail_th")),
                          "certainty": r["certainty"], "linked": lk, "source": _txt(r.get("source")),
-                         "url": _txt(r.get("url"))})
+                         "url": _txt(r.get("url")), "big": 0 if pd.isna(r.get("big")) else int(r["big"])})
         e = ev[ev["id"] == rid].iloc[0].to_dict()
-        trees.append({"root": {"id": int(rid), "title": _th_or_en(e, "title_th", "title"), "year": int(e["year"]),
+        trees.append({"root": {"id": int(rid), "title": tree_title(e), "year": int(e["year"]), "era": era_key(int(e["year"])),
                                "description": _txt(e.get("description")), "th": _txt(e.get("description_th")),
                                "source": _txt(e.get("source")), "url": _txt(e.get("url"))}, "nodes": recs})
     linked = {str(int(r["id"])): {"title": _th_or_en(r, "title_th", "title"), "year": int(r["year"])}
@@ -497,7 +583,7 @@ def _render_tree(year: int, dark: bool):
         return
     ev = query("SELECT * FROM events")
     roots = ev[ev["id"].isin(imp["root_event_id"].unique())].sort_values(["year", "id"])
-    titles = {int(r["id"]): f"{fmt_year(r['year'])} - {_th_or_en(r, 'title_th', 'title')}" for r in roots.to_dict("records")}
+    titles = {int(r["id"]): f"{fmt_year(r['year'])} - {tree_title(r)}" for r in roots.to_dict("records")}
     options = [ALL_TREES] + list(titles)
     sel = st.selectbox("Starting event / เหตุการณ์เริ่มต้น", options, key="tree_root",
                        format_func=lambda i: f"★ ทุกต้นไม้รวมกัน ({len(titles)} เหตุการณ์ เรียงตามเวลา)" if i == ALL_TREES else titles[i])
@@ -506,10 +592,13 @@ def _render_tree(year: int, dark: bool):
     ids = list(titles) if sel == ALL_TREES else [int(sel)]
     trees, linked = _tree_payload(ev, imp, ids, show_debated)
     if sel == ALL_TREES:
-        st.caption("มุมมองรวม: ต้นไม้เรียงตามปีจากซ้ายไปขวา แล้วขึ้นแถวใหม่ ซูมเข้าเพื่ออ่านป้ายชื่อ "
-                   "หรือคลิกที่วงกลมกลางของต้นไม้เพื่อซูมไปที่ต้นนั้น")
-    page = ("<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>" + tree_html(trees, linked, dark)
-            + "</body></html>")
+        st.caption("มุมมองรวม: ทุกครั้งที่เปิด ระบบจะสุ่มต้นไม้หนึ่งต้นแล้วซูมเข้าไป จากนั้นค่อยถอยออกมาให้เห็นทั้งหมด "
+                   "ต้นไม้เรียงตามปีจากซ้ายไปขวา และแต่งตามยุคของตัวเอง (โบราณ กลาง ต้นสมัยใหม่ สมัยใหม่) "
+                   "คลิกที่รูปกลางของต้นไหนเพื่อซูมไปที่ต้นนั้น ปุ่ม 'ดูทั้งหมด' เพื่อถอยกลับ")
+    fonts = ("<link href='https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@400;700&"
+             "family=Noto+Sans+Thai:wght@400;700&display=swap' rel='stylesheet'>")
+    page = ("<!DOCTYPE html><html><head><meta charset='utf-8'>" + fonts + "</head><body>"
+            + tree_html(trees, linked, dark) + "</body></html>")
     if hasattr(st, "iframe"):
         st.iframe(page, height=720)
     else:
