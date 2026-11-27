@@ -8,7 +8,7 @@ from geo import snapshots, nearest_snapshot, load_borders, colour_for, polity_su
 from utils import fmt_year, base_map, cert_badge, src_link
 
 CAT_COLOURS = {"War": "red", "Politics": "blue", "Law": "green", "Religion": "purple",
-               "Exploration": "orange", "Disease": "black", "Trade": "darkgreen"}
+               "Exploration": "orange", "Disease": "black", "Trade": "darkgreen", "Science": "cadetblue"}
 
 
 def build_map(snap, year, dark, show_borders, show_cities, show_events, show_routes,
